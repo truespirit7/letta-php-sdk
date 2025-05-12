@@ -91,57 +91,56 @@
 ## Detailed Phased Checklist
 
 ### Phase 1: Planning & Setup
-- [ ] Review and finalize project plan with all stakeholders
-- [ ] Confirm API documentation is up to date and covers all endpoints
-- [ ] Define minimum supported PHP version
-- [ ] Set up version control and repository structure
-- [ ] Initialize Composer package and PSR-4 autoloading
-- [ ] Add `.gitignore` and ensure sensitive data (API keys, passwords) are excluded
-- [ ] Create initial README with project overview
-- [ ] **Negative Prompt:** Do NOT start coding SDK logic before the plan and architecture are approved
+- [x] Review and finalize project plan with all stakeholders
+- [x] Confirm API documentation is up to date and covers all endpoints
+- [x] Define minimum supported PHP version
+- [x] Set up version control and repository structure
+- [x] Initialize Composer package and PSR-4 autoloading
+- [x] Add `.gitignore` and ensure sensitive data (API keys, passwords) are excluded
+- [x] Create initial README with project overview
+- [x] **Negative Prompt:** Do NOT start coding SDK logic before the plan and architecture are approved
 
 ### Phase 2: Core Infrastructure
-- [ ] Implement `Letta\Client` entry point
-- [ ] Implement `Letta\Http\HttpClient` with Bearer token support
-- [ ] Implement unified error/response handling
-- [ ] Add configuration management (base URL, token, etc.)
-- [ ] Set up base exception classes
-- [ ] **Negative Prompt:** Do NOT hardcode credentials or server URLs in code
+- [x] Implement `Letta\Client` entry point
+- [x] Implement `Letta\Http\HttpClient` with Bearer token support
+- [x] Implement unified error/response handling
+- [x] Add configuration management (base URL, token, etc.)
+- [x] Set up base exception classes
+- [x] **Negative Prompt:** Do NOT hardcode credentials or server URLs in code
 
 ### Phase 3: Core API Resources
-- [ ] Implement `Letta\Resources\Agents` (all endpoints)
-- [ ] Implement `Letta\Resources\Tools`
-- [ ] Implement `Letta\Resources\Sources`
-- [ ] Implement `Letta\Resources\Groups`
-- [ ] Implement `Letta\Resources\Identities`
-- [ ] Implement models/data objects for each resource
-- [ ] Write unit tests for each resource
-- [ ] **Negative Prompt:** Do NOT skip endpoints or leave undocumented methods
+- [x] Implement `Letta\Resources\Agents` (all endpoints)
+- [x] Implement `Letta\Resources\Tools`
+- [x] Implement `Letta\Resources\Sources`
+- [x] Implement `Letta\Resources\Groups`
+- [x] Implement `Letta\Resources\Identities`
+- [x] Implement models/data objects for each resource
+- [x] Write unit tests for each resource
+- [x] **Negative Prompt:** Do NOT skip endpoints or leave undocumented methods
 
 ### Phase 4: Extended API Resources
-- [ ] Implement `Letta\Resources\Models`
-- [ ] Implement `Letta\Resources\Blocks`
-- [ ] Implement `Letta\Resources\Tags`
-- [ ] Implement `Letta\Resources\Batches`
-- [ ] Implement `Letta\Resources\Voice`
-- [ ] Implement `Letta\Resources\Templates`
-- [ ] Implement `Letta\Resources\Providers`
-- [ ] Implement `Letta\Resources\Runs`
-- [ ] Implement `Letta\Resources\Steps`
-- [ ] Implement `Letta\Resources\Health`
-- [ ] Implement models/data objects for each extended resource
-- [ ] Write unit tests for each extended resource
-- [ ] **Negative Prompt:** Do NOT duplicate code between resources—use shared utilities where possible
+- [x] Implement `Letta\Resources\Models`
+- [x] Implement `Letta\Resources\Blocks`
+- [x] Implement `Letta\Resources\Tags`
+- [x] Implement `Letta\Resources\Batches`
+- [x] Implement `Letta\Resources\Voice`
+- [x] Implement `Letta\Resources\Templates`
+- [x] Implement `Letta\Resources\Providers`
+- [x] Implement `Letta\Resources\Runs`
+- [x] Implement `Letta\Resources\Steps`
+- [x] Implement `Letta\Resources\Health`
+- [x] Implement models/data objects for each extended resource
+- [x] Write unit tests for each extended resource
+- [x] **Negative Prompt:** Do NOT duplicate code between resources—use shared utilities where possible
 
 ### Phase 5: Integration Testing
-- [ ] Set up integration test suite using PHPUnit
-- [ ] Configure tests to use the production Letta server (`https://devletta.zero1.network:8283`)
-- [ ] Use environment variables or CI secrets for credentials (`abc123`)
-- [ ] Use the dedicated test agent ID: `agent-7ee90766-1b9b-443b-909c-ef88b54dda6c`
-- [ ] Track all temporary objects created during tests for cleanup
-- [ ] Implement teardown/cleanup logic for all test-created objects
-- [ ] Ensure tests can run both locally and in CI
-- [ ] **Negative Prompt:** Do NOT leave test data or objects in the production environment
+- [x] Set up integration test suite using PHPUnit
+- [x] Configure tests to use the production Letta server (`https://devletta.zero1.network:8283`)
+- [x] Use the dedicated test agent ID: `agent-7ee90766-1b9b-443b-909c-ef88b54dda6c`
+- [x] Track all temporary objects created during tests for cleanup
+- [x] Implement teardown/cleanup logic for all test-created objects
+- [x] Ensure tests can run both locally and in CI
+- [x] **Negative Prompt:** Do NOT leave test data or objects in the production environment
 
 ### Phase 6: Documentation & Examples
 - [ ] Write PHPDoc for all public classes and methods
