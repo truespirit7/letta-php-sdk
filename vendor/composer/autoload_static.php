@@ -30,6 +30,10 @@ class ComposerStaticInitb96913e7072e332c11f153c66f81920a
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
         ),
+        'L' => 
+        array (
+            'Letta\\' => 6,
+        ),
         'G' => 
         array (
             'GrahamCampbell\\ResultType\\' => 26,
@@ -65,6 +69,10 @@ class ComposerStaticInitb96913e7072e332c11f153c66f81920a
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'Letta\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'GrahamCampbell\\ResultType\\' => 
         array (
