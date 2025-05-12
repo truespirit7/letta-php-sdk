@@ -141,6 +141,9 @@
 - [x] Implement teardown/cleanup logic for all test-created objects
 - [x] Ensure tests can run both locally and in CI
 - [x] **Negative Prompt:** Do NOT leave test data or objects in the production environment
+- [ ] **Audit SDK request structure for consistency:**
+    - [x] All implemented resource methods for create/upsert/modify are structurally consistent (only Tools is implemented so far).
+    - [x] Future implementations should follow the Tools resource pattern for sending payloads as JSON in the 'body' key.
 
 ### Phase 6: Documentation & Examples
 - [ ] Write PHPDoc for all public classes and methods

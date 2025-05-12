@@ -39,7 +39,8 @@ class Identities
      */
     public function create(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/identities/', ['body' => $data]);
+        return (object) $response;
     }
 
     /**
@@ -66,7 +67,8 @@ class Identities
      */
     public function retrieve(string $identityId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/identities/{$identityId}");
+        return (object) $response;
     }
 
     /**
@@ -75,7 +77,8 @@ class Identities
      */
     public function delete(string $identityId)
     {
-        // TODO: Implement
+        $this->http->request('DELETE', "/v1/identities/{$identityId}");
+        return true;
     }
 
     /**

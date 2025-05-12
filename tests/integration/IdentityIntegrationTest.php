@@ -16,7 +16,7 @@ class IdentityIntegrationTest extends IntegrationTestCase
         );
         foreach ($this->createdIdentityIds as $identityId) {
             try {
-                // TODO: Implement $client->identities()->delete($identityId) when resource accessors are available
+                $client->identities()->delete($identityId);
             } catch (\Exception $e) {
                 // Ignore if already deleted
             }
@@ -31,7 +31,21 @@ class IdentityIntegrationTest extends IntegrationTestCase
             self::$apiToken,
             self::$apiUrl
         );
-        // TODO: Implement $client->identities()->create(), get(), delete() when resource accessors are available
-        $this->assertTrue(true, 'Stub: Replace with real identity test when implemented.');
+        $payload = [
+            'name' => 'test_identity_' . uniqid(),
+            'identifier_key' => 'test_identity_' . uniqid(),
+            'identity_type' => 'user',
+        ];
+        echo "\n[DEBUG] Identity creation payload:\n" . json_encode($payload, JSON_PRETTY_PRINT) . "\n";
+        try {
+            $identity = $client->identities()->create($payload);
+            $this->assertNotNull($identity);
+            $this->createdIdentityIds[] = $identity->id;
+            $fetched = $client->identities()->retrieve($identity->id);
+            $this->assertEquals($identity->id, $fetched->id);
+        } catch (\Exception $e) {
+            echo "[ERROR] Exception during identity creation: " . $e->getMessage() . "\n";
+            throw $e;
+        }
     }
 } 

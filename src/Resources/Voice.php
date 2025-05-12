@@ -30,6 +30,7 @@ class Voice
      */
     public function createVoiceChatCompletion(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/voice/chat-completions', ['body' => $data]);
+        return $response;
     }
 } 

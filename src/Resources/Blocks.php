@@ -39,7 +39,8 @@ class Blocks
      */
     public function create(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/blocks/', ['body' => $data]);
+        return (object) $response;
     }
 
     /**
@@ -48,7 +49,8 @@ class Blocks
      */
     public function retrieve(string $blockId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/blocks/{$blockId}");
+        return (object) $response;
     }
 
     /**
@@ -57,7 +59,8 @@ class Blocks
      */
     public function delete(string $blockId)
     {
-        // TODO: Implement
+        $this->http->request('DELETE', "/v1/blocks/{$blockId}");
+        return true;
     }
 
     /**

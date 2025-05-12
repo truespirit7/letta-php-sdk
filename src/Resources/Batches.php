@@ -30,7 +30,8 @@ class Batches
      */
     public function listRuns(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/batches/runs');
+        return $response;
     }
 
     /**
