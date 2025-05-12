@@ -16,7 +16,7 @@ class BlockIntegrationTest extends IntegrationTestCase
         );
         foreach ($this->createdBlockIds as $blockId) {
             try {
-                // TODO: Implement $client->blocks()->delete($blockId) when resource accessors are available
+                $client->blocks()->delete($blockId);
             } catch (\Exception $e) {
                 // Ignore if already deleted
             }
@@ -31,7 +31,20 @@ class BlockIntegrationTest extends IntegrationTestCase
             self::$apiToken,
             self::$apiUrl
         );
-        // TODO: Implement $client->blocks()->create(), get(), delete() when resource accessors are available
-        $this->assertTrue(true, 'Stub: Replace with real block test when implemented.');
+        $payload = [
+            'label' => 'test_block_' . uniqid(),
+            'value' => 'Integration test block content',
+        ];
+        echo "\n[DEBUG] Block creation payload:\n" . json_encode($payload, JSON_PRETTY_PRINT) . "\n";
+        try {
+            $block = $client->blocks()->create($payload);
+            $this->assertNotNull($block);
+            $this->createdBlockIds[] = $block->id;
+            $fetched = $client->blocks()->retrieve($block->id);
+            $this->assertEquals($block->id, $fetched->id);
+        } catch (\Exception $e) {
+            echo "[ERROR] Exception during block creation: " . $e->getMessage() . "\n";
+            throw $e;
+        }
     }
 } 

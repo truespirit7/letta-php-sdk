@@ -30,6 +30,7 @@ class Templates
      */
     public function list(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/templates/');
+        return $response;
     }
 } 

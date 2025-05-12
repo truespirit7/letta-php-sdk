@@ -16,7 +16,7 @@ class ToolIntegrationTest extends IntegrationTestCase
         );
         foreach ($this->createdToolIds as $toolId) {
             try {
-                // TODO: Implement $client->tools()->delete($toolId) when resource accessors are available
+                $client->tools()->delete($toolId);
             } catch (\Exception $e) {
                 // Ignore if already deleted
             }
@@ -31,7 +31,30 @@ class ToolIntegrationTest extends IntegrationTestCase
             self::$apiToken,
             self::$apiUrl
         );
-        // TODO: Implement $client->tools()->create(), get(), delete() when resource accessors are available
-        $this->assertTrue(true, 'Stub: Replace with real tool test when implemented.');
+        $payload = [
+            'name' => 'test_tool_' . uniqid(),
+            'description' => 'Integration test tool',
+            'tool_type' => 'custom',
+            'source_type' => 'python',
+            'source_code' => 'def run(): return "ok"',
+            'json_schema' => (object)[],
+            'args_json_schema' => (object)[],
+            'return_char_limit' => 100
+        ];
+        echo "\n[DEBUG] Tool creation payload:\n" . json_encode($payload, JSON_PRETTY_PRINT) . "\n";
+        try {
+            $tool = $client->tools()->upsert($payload);
+            $this->assertNotNull($tool);
+            $this->createdToolIds[] = $tool->id;
+            $fetched = $client->tools()->retrieve($tool->id);
+            $this->assertEquals($tool->id, $fetched->id);
+        } catch (\Exception $e) {
+            echo "[ERROR] Exception during tool creation: " . $e->getMessage() . "\n";
+            if (method_exists($e, 'getResponse')) {
+                $response = $e->getResponse();
+                echo "[ERROR] API Response: " . print_r($response, true) . "\n";
+            }
+            throw $e;
+        }
     }
 } 

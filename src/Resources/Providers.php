@@ -30,7 +30,8 @@ class Providers
      */
     public function list(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/providers/');
+        return $response;
     }
 
     /**

@@ -75,7 +75,8 @@ class Agents
      */
     public function retrieve(string $agentId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/agents/{$agentId}");
+        return (object) $response;
     }
 
     /**

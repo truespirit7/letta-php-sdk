@@ -12,7 +12,8 @@ class AgentIntegrationTest extends IntegrationTestCase
             self::$apiToken,
             self::$apiUrl
         );
-        // TODO: Implement $client->agents()->get(self::$testAgentId) when resource accessors are available
-        $this->assertTrue(true, 'Stub: Replace with real agent fetch test when implemented.');
+        $agent = $client->agents()->retrieve(self::$testAgentId);
+        $this->assertNotNull($agent);
+        $this->assertEquals(self::$testAgentId, $agent->id);
     }
 } 

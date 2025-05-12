@@ -30,6 +30,7 @@ class Tags
      */
     public function list()
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/tags/');
+        return $response;
     }
 } 

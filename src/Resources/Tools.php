@@ -30,7 +30,8 @@ class Tools
      */
     public function list(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/tools/');
+        return $response;
     }
 
     /**
@@ -39,7 +40,8 @@ class Tools
      */
     public function create(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/tools/', ['body' => $data]);
+        return (object) $response;
     }
 
     /**
@@ -48,7 +50,8 @@ class Tools
      */
     public function upsert(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('PUT', '/v1/tools/', ['body' => $data]);
+        return (object) $response;
     }
 
     /**
@@ -139,5 +142,17 @@ class Tools
     public function deleteMcpServer(string $serverId)
     {
         // TODO: Implement
+    }
+
+    public function retrieve(string $toolId)
+    {
+        $response = $this->http->request('GET', "/v1/tools/{$toolId}");
+        return (object) $response;
+    }
+
+    public function delete(string $toolId)
+    {
+        $this->http->request('DELETE', "/v1/tools/{$toolId}");
+        return true;
     }
 } 

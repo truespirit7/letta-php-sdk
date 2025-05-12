@@ -39,7 +39,8 @@ class Sources
      */
     public function create(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/sources/', ['body' => $data]);
+        return (object) $response;
     }
 
     /**
@@ -57,7 +58,8 @@ class Sources
      */
     public function retrieve(string $sourceId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/sources/{$sourceId}");
+        return (object) $response;
     }
 
     /**
@@ -75,7 +77,8 @@ class Sources
      */
     public function delete(string $sourceId)
     {
-        // TODO: Implement
+        $this->http->request('DELETE', "/v1/sources/{$sourceId}");
+        return true;
     }
 
     /**

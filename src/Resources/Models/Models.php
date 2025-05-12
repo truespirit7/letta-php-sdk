@@ -30,7 +30,8 @@ class Models
      */
     public function listLlmModels()
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/models/llm');
+        return $response;
     }
 
     /**
@@ -39,6 +40,17 @@ class Models
      */
     public function listEmbeddingModels()
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/models/embedding');
+        return $response;
+    }
+
+    /**
+     * List all models.
+     * GET /v1/models/
+     */
+    public function list()
+    {
+        $response = $this->http->request('GET', '/v1/models/');
+        return $response;
     }
 } 

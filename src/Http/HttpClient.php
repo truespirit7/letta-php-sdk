@@ -41,10 +41,48 @@ class HttpClient
      */
     public function request(string $method, string $path, array $options = []): array
     {
-        // TODO: Implement HTTP request logic (e.g., using curl or Guzzle)
-        // TODO: Add Bearer token to Authorization header
-        // TODO: Handle errors and parse responses
-        throw new \Exception('HttpClient::request() not implemented yet.');
+        $url = $this->baseUrl . $path;
+        $ch = curl_init();
+        $headers = [
+            'Authorization: Bearer ' . $this->token,
+            'Accept: application/json',
+        ];
+        if (isset($options['headers'])) {
+            foreach ($options['headers'] as $key => $value) {
+                $headers[] = "$key: $value";
+            }
+        }
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        if (isset($options['body'])) {
+            $body = $options['body'];
+            if (is_object($body)) {
+                $body = (array) $body;
+            }
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
+            if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
+                $headers[] = 'Content-Type: application/json';
+            }
+        }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if (curl_errno($ch)) {
+            throw new \Exception('Curl error: ' . curl_error($ch));
+        }
+        curl_close($ch);
+        $data = json_decode($response, true);
+        if ($data === null && !empty($response)) {
+            // Log the raw response for debugging
+            error_log('[Letta SDK][DEBUG] Raw API response: ' . $response);
+        }
+        if ($httpCode >= 400) {
+            throw new \Exception('HTTP error ' . $httpCode . ': ' . ($data['error'] ?? $response));
+        }
+        return $data ?? [];
     }
 
     // TODO: Add helper methods for GET, POST, etc. if needed

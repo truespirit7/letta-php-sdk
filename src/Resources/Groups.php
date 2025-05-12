@@ -39,7 +39,8 @@ class Groups
      */
     public function create(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/groups/', ['body' => $data]);
+        return (object) $response;
     }
 
     /**
@@ -57,7 +58,8 @@ class Groups
      */
     public function retrieve(string $groupId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/groups/{$groupId}");
+        return (object) $response;
     }
 
     /**
@@ -75,6 +77,7 @@ class Groups
      */
     public function delete(string $groupId)
     {
-        // TODO: Implement
+        $this->http->request('DELETE', "/v1/groups/{$groupId}");
+        return true;
     }
 } 
