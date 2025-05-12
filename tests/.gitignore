@@ -1,0 +1,3 @@
+# Ignore environment files for integration tests
+.env
+.env.example 
