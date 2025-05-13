@@ -211,4 +211,100 @@ CC-BY-SA (Creative Commons Attribution-ShareAlike 4.0 International)
 
 ---
 
-*This plan is based on the Letta API documentation in docs/Letta-API-Endpoints-Documentation.md. Adjustments may be made as implementation progresses or as new requirements emerge.* 
+*This plan is based on the Letta API documentation in docs/Letta-API-Endpoints-Documentation.md. Adjustments may be made as implementation progresses or as new requirements emerge.*
+
+---
+
+## What We Missed (Forensic Audit)
+
+The following endpoints, SDK methods, or tests are missing, incomplete, or require further work to achieve full coverage as per the Letta API documentation:
+
+### Agents
+- [ ] Implement SDK methods for:
+    - [ ] `list` (GET /v1/agents/) — SDK, test, example
+    - [ ] `create` (POST /v1/agents/) — SDK, test, example
+    - [ ] `count` (GET /v1/agents/count) — SDK, test
+    - [ ] `export` (GET /v1/agents/export) — SDK, test
+    - [ ] `import` (POST /v1/agents/import) — SDK, test
+    - [ ] `delete` (DELETE /v1/agents/{agent_id}) — SDK, test
+    - [ ] `modify` (PATCH /v1/agents/{agent_id}) — SDK, test
+    - [ ] `search` (POST /v1/agents/search) — SDK, test (Cloud-only)
+    - [ ] `getContext` (GET /v1/agents/{agent_id}/context) — SDK, test
+    - [ ] `listTools`, `attachTool`, `detachTool` (agent-tool management) — SDK, test
+    - [ ] `listSources`, `attachSource`, `detachSource` (agent-source management) — SDK, test
+    - [ ] `getCoreMemoryBlocks`, `modifyCoreMemoryBlock`, `attachCoreMemoryBlock`, `detachCoreMemoryBlock` — SDK, test
+- [ ] Add integration tests and examples for all above methods
+
+### Sources
+- [ ] Implement SDK methods for:
+    - [ ] `list` (GET /v1/sources/) — SDK, test
+    - [ ] `count` (GET /v1/sources/count) — SDK, test
+    - [ ] `modify` (PATCH /v1/sources/{source_id}) — SDK, test
+    - [ ] `getIdByName` (GET /v1/sources/id/{name}) — SDK, test
+- [ ] Add integration tests and examples for all above methods
+
+### Blocks
+- [ ] Implement SDK method for:
+    - [ ] `list` (GET /v1/blocks/) — SDK, test
+- [ ] Add integration test
+
+### Groups
+- [ ] Implement SDK methods for:
+    - [ ] `list` (GET /v1/groups/) — SDK, test
+    - [ ] `count` (GET /v1/groups/count) — SDK, test
+    - [ ] `modify` (PATCH /v1/groups/{group_id}) — SDK, test
+- [ ] Add integration tests
+
+### Identities
+- [ ] Implement SDK methods for:
+    - [ ] `list` (GET /v1/identities/) — SDK, test
+    - [ ] `upsert` (PUT /v1/identities/) — SDK, test
+    - [ ] `count` (GET /v1/identities/count) — SDK, test
+    - [ ] `modify` (PATCH /v1/identities/{identity_id}) — SDK, test
+- [ ] Add integration tests
+
+### Providers
+- [ ] Implement SDK methods for:
+    - [ ] `create` (POST /v1/providers/) — SDK, test
+    - [ ] `delete` (DELETE /v1/providers/{provider_id}) — SDK, test
+    - [ ] `modify` (PATCH /v1/providers/{provider_id}) — SDK, test
+- [ ] Add integration tests
+
+### Tools
+- [ ] Implement SDK methods for:
+    - [ ] `upsertBase` (POST /v1/tools/base) — SDK, test
+    - [ ] `runFromSource` (POST /v1/tools/run-from-source) — SDK, test
+    - [ ] MCP/Composio endpoints (various) — SDK, test
+- [ ] Add integration tests (remove skips for MCP/Composio if needed)
+
+### Batches
+- [ ] Implement SDK methods for:
+    - [ ] `createMessagesBatch` (POST /v1/batches/messages) — SDK, test
+    - [ ] `retrieveRun` (GET /v1/batches/runs/{batch_id}) — SDK, test
+    - [ ] `cancelRun` (PATCH /v1/batches/runs/{batch_id}) — SDK, test
+- [ ] Add integration tests
+
+### Tags
+- [ ] Implement SDK method for:
+    - [ ] `list` (GET /v1/tags/) — SDK, test
+- [ ] Add integration test
+
+### Memory Variables
+- [ ] Implement SDK method for:
+    - [ ] `getCoreMemoryVariables` (GET /v1/agents/{agent_id}/core-memory/variables) — SDK, test (Cloud-only)
+- [ ] Add integration test (Cloud-only)
+
+### Batch Messages
+- [ ] Implement SDK method for:
+    - [ ] `getBatchMessages` (GET /v1/batch-runs/{batch_id}/messages) — SDK, test
+- [ ] Add integration test
+
+---
+
+**For each item above:**
+- [ ] Implement the SDK method in the appropriate resource class
+- [ ] Write or update integration tests to cover the endpoint
+- [ ] Add example scripts if the endpoint is user-facing
+- [ ] Update documentation and PHPDoc as needed
+
+**This checklist must be completed before tagging and releasing version 1.0.0.** 
