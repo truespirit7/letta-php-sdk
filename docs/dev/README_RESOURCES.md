@@ -27,4 +27,10 @@ Each resource documentation includes:
 
 ---
 
-> **Tip:** See the [README.md](../README.md) for installation and getting started instructions. 
+> **Tip:** See the [README.md](../README.md) for installation and getting started instructions.
+
+---
+
+## License
+
+This documentation is licensed under CC-BY-SA 4.0 (Creative Commons Attribution-ShareAlike 4.0 International). 

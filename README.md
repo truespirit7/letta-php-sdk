@@ -4,22 +4,39 @@ A robust, well-documented PHP SDK for the Letta AI Agentic Framework. Easily int
 
 ## Getting Started
 
-### Installation
+### Installation (Local/Development)
 
-Install via Composer:
+This SDK is not yet published to Packagist. To use it in your project:
 
-```bash
-composer require letta/letta-php-sdk
+1. **Clone this repository** (or download and extract it) into a directory, e.g., `vendor/letta/letta-php-sdk`.
+2. In your project's `composer.json`, add a [path repository](https://getcomposer.org/doc/05-repositories.md#path):
+
+```json
+{
+  "repositories": [
+    {
+      "type": "path",
+      "url": "vendor/letta/letta-php-sdk"
+    }
+  ],
+  "require": {
+    "letta/letta-php-sdk": "*"
+  }
+}
 ```
 
-### Configuration
+3. Run:
 
-1. Copy `.env.example` to `.env` and fill in your Letta API credentials:
+```bash
+composer update letta/letta-php-sdk
+```
+
+4. Copy `.env.example` to `.env` and fill in your Letta API credentials:
    - `LETTA_API_URL` (e.g., `https://devletta.zero1.network:8283`)
    - `LETTA_API_TOKEN` (your API key)
    - (Optional) `LETTA_TEST_AGENT_ID` for example scripts
 
-2. Load environment variables in your script (see examples below).
+5. Load environment variables in your script (see examples below).
 
 ## Usage Examples
 
@@ -41,19 +58,10 @@ Run an example:
 php docs/examples/health_check.php
 ```
 
-## API Reference
-
-- **Resource Reference:** See [`docs/dev/README_RESOURCES.md`](docs/dev/README_RESOURCES.md) for detailed documentation of each SDK resource class and their methods.
-- **Full API Endpoints:**
-  - [`docs/dev/Letta-API-Endpoints-Documentation.md`](docs/dev/Letta-API-Endpoints-Documentation.md)
-  - [`docs/dev/Letta-API-Endpoints-Documentation Part 2.md`](docs/dev/Letta-API-Endpoints-Documentation%20Part%202.md)
-- **Tool Compatibility Notes:** [`docs/dev/letta-tool-compatibility-notes.md`](docs/dev/letta-tool-compatibility-notes.md)
-- **Project Plan:** [`docs/dev/PROJECT_PLAN.md`](docs/dev/PROJECT_PLAN.md)
-
 ## Contributing
 
-Contributions are welcome! Please see the [project plan](docs/dev/PROJECT_PLAN.md) and ensure all new code is fully tested and documented.
+Contributions are welcome! Please see the project plan and ensure all new code is fully tested and documented.
 
 ## License
 
-MIT
+CC-BY-SA

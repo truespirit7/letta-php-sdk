@@ -16,7 +16,7 @@ curl https://api.letta.com/v1/agents/ \
 **Response Fields:** The response is a JSON array of agent objects. Key fields for each agent include:
 
 * **`id`** (string): Unique identifier of the agent.
-* **`name`** (string): The agent’s name.
+* **`name`** (string): The agent's name.
 * **`system`** (string): The system prompt (base persona or instructions) for the agent.
 * **`agent_type`** (enum): Type of agent (e.g., `memgpt_agent`, `split_thread_agent`, `sleeptime_agent`, etc.).
 * **`llm_config`** (object): Configuration of the language model for this agent (model name, provider, context window, etc.).
@@ -31,15 +31,15 @@ curl https://api.letta.com/v1/agents/ \
 * **`created_by_id`**, **`last_updated_by_id`** (string, optional): User IDs of who created and last updated the agent.
 * **`created_at`**, **`updated_at`** (datetime string, optional): Timestamps of creation and last update.
 * **`tool_rules`** (list of objects, optional): List of tool-use rules or constraints for this agent.
-* **`message_ids`** (list of strings, optional): IDs of messages currently in the agent’s conversation memory.
-* **`response_format`** (object, optional): Format configuration for the agent’s responses (e.g., `{ "type": "text" }`).
+* **`message_ids`** (list of strings, optional): IDs of messages currently in the agent's conversation memory.
+* **`response_format`** (object, optional): Format configuration for the agent's responses (e.g., `{ "type": "text" }`).
 * **`description`** (string, optional): A human-readable description of the agent.
 * **`metadata`** (object, optional): Additional metadata for the agent (custom key–value data).
-* **`tool_exec_environment_variables`** (list of objects, optional): Environment variables specific to this agent’s tool execution environment (each with `key`, `value`, etc.).
+* **`tool_exec_environment_variables`** (list of objects, optional): Environment variables specific to this agent's tool execution environment (each with `key`, `value`, etc.).
 * **`project_id`**, **`template_id`**, **`base_template_id`** (string, optional): If using Letta Cloud projects and templates, these link the agent to a project or template (IDs).
 * **`identity_ids`** (list of strings, optional): IDs of **Identity** objects associated with this agent (for multi-identity scenarios).
-* **`message_buffer_autoclear`** (boolean, optional): If `true`, the agent’s message history is not persisted between conversations (the agent still retains long-term memory via blocks).
-* **`enable_sleeptime`** (boolean, optional): If `true`, enables background “sleeptime” memory management for this agent (moving memory management to a background thread).
+* **`message_buffer_autoclear`** (boolean, optional): If `true`, the agent's message history is not persisted between conversations (the agent still retains long-term memory via blocks).
+* **`enable_sleeptime`** (boolean, optional): If `true`, enables background "sleeptime" memory management for this agent (moving memory management to a background thread).
 * **`multi_agent_group`** (object, optional): If this agent is managing a multi-agent group, this object describes the group (see **Groups** section for fields like `manager_type`, `agent_ids`, etc.).
 
 > **Note:** Query parameters for filtering are available: e.g., `name`, `tags`, `match_all_tags`, `query_text` (to search by name), as well as `before`, `after`, and `limit` for pagination. You can also filter by `project_id`, `template_id`, `base_template_id`, or `identity_id` if applicable. By default, all relational fields (tools, sources, memory, etc.) are included; you may specify `include_relationships` to limit which related data to include for performance.
@@ -77,7 +77,7 @@ curl https://api.letta.com/v1/agents/export?agent_id=<ID> \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Exports an agent’s full definition in a serialized format. This is typically used to get a portable representation of the agent (including memory blocks, tools, etc.) that can be saved or transferred.
+**Description:** Exports an agent's full definition in a serialized format. This is typically used to get a portable representation of the agent (including memory blocks, tools, etc.) that can be saved or transferred.
 
 **Response Fields:** Returns a serialized representation of the agent, usually as a JSON structure or file download. (The exact format includes agent configuration and is intended for use with the corresponding import endpoint.)
 
@@ -125,7 +125,7 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id> \
      -d '{ ... }'
 ```
 
-**Description:** Updates an existing agent’s configuration. The request body should include only the fields to change – for example, you can change the agent’s name, system prompt, tools, memory, etc.. Any fields not provided will remain unchanged.
+**Description:** Updates an existing agent's configuration. The request body should include only the fields to change – for example, you can change the agent's name, system prompt, tools, memory, etc.. Any fields not provided will remain unchanged.
 
 **Response Fields:** Returns the updated agent object with all standard agent fields. Changed fields will reflect the new values. For example, if you updated `name` or added a tool, the response will show the new `name` and an updated `tools` list. All other fields match those described in **List Agents**.
 
@@ -149,7 +149,7 @@ curl -X POST https://api.letta.com/v1/agents/search \
 
 ---
 
-**Agent Sub-Resources and Actions:** The following endpoints allow management of agent-specific sub-resources (like an agent’s context window, tools, data sources, memory, messages, etc.), typically identified by the agent’s ID in the path.
+**Agent Sub-Resources and Actions:** The following endpoints allow management of agent-specific sub-resources (like an agent's context window, tools, data sources, memory, messages, etc.), typically identified by the agent's ID in the path.
 
 ### GET `/v1/agents/{agent_id}/context` – Retrieve Agent Context Window
 
@@ -158,11 +158,11 @@ curl https://api.letta.com/v1/agents/<agent_id>/context \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Retrieves the current **context window summary** for a given agent. This includes counts of tokens/messages in various parts of the agent’s context and memory, as well as a snapshot of recent messages. It’s useful for understanding how full the agent’s context is and what content is currently influencing the agent.
+**Description:** Retrieves the current **context window summary** for a given agent. This includes counts of tokens/messages in various parts of the agent's context and memory, as well as a snapshot of recent messages. It's useful for understanding how full the agent's context is and what content is currently influencing the agent.
 
-**Response Fields:** Returns an object with statistics and content about the agent’s context:
+**Response Fields:** Returns an object with statistics and content about the agent's context:
 
-* **`context_window_size_max`** (integer): The maximum size (in tokens) of the agent’s context window.
+* **`context_window_size_max`** (integer): The maximum size (in tokens) of the agent's context window.
 * **`context_window_size_current`** (integer): Current used tokens in the context window.
 * **`num_messages`** (integer): Number of recent messages currently in the context.
 * **`num_archival_memory`** (integer): Number of **archival memory** items (older memory stored outside the active context).
@@ -171,18 +171,18 @@ curl https://api.letta.com/v1/agents/<agent_id>/context \
 * **`external_memory_summary`** (string): The summary of external memory (if the agent generates a summary of long-term memory).
 * **`num_tokens_system`** (integer): Tokens in the system prompt portion.
 * **`system_prompt`** (string): The current system prompt text.
-* **`num_tokens_core_memory`** (integer): Tokens in the agent’s core memory blocks currently in context.
-* **`core_memory`** (string): A compiled string of the agent’s core memory content currently in context (if applicable).
+* **`num_tokens_core_memory`** (integer): Tokens in the agent's core memory blocks currently in context.
+* **`core_memory`** (string): A compiled string of the agent's core memory content currently in context (if applicable).
 * **`num_tokens_summary_memory`** (integer): Tokens in any summary memory content.
 * **`num_tokens_functions_definitions`** (integer): Tokens used by function/tool definitions in context.
 * **`num_tokens_messages`** (integer): Tokens used by the messages in the context window.
-* **`messages`** (list of objects): The recent messages currently in the agent’s context (typically a truncated conversation history). Each message object includes fields such as `role` (e.g., “assistant” or “user”), `content` (message content, possibly segmented by type), `id` (message ID), `created_at`, `sender_id`, and any tool call/return data if the message involved a tool (similar structure as in **Agent Messages** below).
+* **`messages`** (list of objects): The recent messages currently in the agent's context (typically a truncated conversation history). Each message object includes fields such as `role` (e.g., "assistant" or "user"), `content` (message content, possibly segmented by type), `id` (message ID), `created_at`, `sender_id`, and any tool call/return data if the message involved a tool (similar structure as in **Agent Messages** below).
 * **`summary_memory`** (string): A summary of older messages or memory that have been moved out of the active context (if the agent uses summary).
 * **`functions_definitions`** (list): Definitions of tools/functions currently included in the context (each with a `function` definition and type).
 
-This endpoint essentially provides insight into the agent’s internal state regarding memory and context utilization.
+This endpoint essentially provides insight into the agent's internal state regarding memory and context utilization.
 
-### GET `/v1/agents/{agent_id}/tools` – List Agent’s Tools
+### GET `/v1/agents/{agent_id}/tools` – List Agent's Tools
 
 ```bash
 curl https://api.letta.com/v1/agents/<agent_id>/tools \
@@ -196,13 +196,13 @@ curl https://api.letta.com/v1/agents/<agent_id>/tools \
 * **`id`** (string): Unique tool identifier (prefixed with `"tool-"`).
 * **`tool_type`** (string): The category/type of tool (e.g., `"custom"` for user-defined tools).
 * **`description`** (string): A description of what the tool does.
-* **`source_type`** (string): The implementation type or source of the tool’s code (for example, `"python"` or other indicator of how the tool is run).
-* **`name`** (string): The function name of the tool (how it’s invoked).
+* **`source_type`** (string): The implementation type or source of the tool's code (for example, `"python"` or other indicator of how the tool is run).
+* **`name`** (string): The function name of the tool (how it's invoked).
 * **`tags`** (list of strings): Tags or labels associated with the tool (for organization/metadata).
-* **`source_code`** (string): The source code of the tool (if it’s a custom code tool).
-* **`json_schema`** (object): The JSON schema for the tool’s input/output (if defined).
-* **`args_json_schema`** (object): JSON schema for the tool’s arguments (if separate from the main schema).
-* **`return_char_limit`** (integer): The maximum number of characters the tool’s return value can have.
+* **`source_code`** (string): The source code of the tool (if it's a custom code tool).
+* **`json_schema`** (object): The JSON schema for the tool's input/output (if defined).
+* **`args_json_schema`** (object): JSON schema for the tool's arguments (if separate from the main schema).
+* **`return_char_limit`** (integer): The maximum number of characters the tool's return value can have.
 * **`created_by_id`** (string): User ID of who created the tool (if applicable).
 * **`last_updated_by_id`** (string): User ID of who last updated the tool.
 * **`metadata_`** (object): Additional metadata for the tool (if any).
@@ -216,7 +216,7 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/tools/attach/<tool_id> 
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Attaches an existing tool (identified by `tool_id`) to the specified agent. After this call, the agent will have the tool in its arsenal and can use it during conversations. This does not change the tool’s global configuration; it just links the tool to the agent.
+**Description:** Attaches an existing tool (identified by `tool_id`) to the specified agent. After this call, the agent will have the tool in its arsenal and can use it during conversations. This does not change the tool's global configuration; it just links the tool to the agent.
 
 **Response Fields:** Returns the updated agent object (same format as in **Retrieve Agent**), now including the newly attached tool in its `tools` list. All agent fields are returned; key ones to verify include:
 
@@ -232,16 +232,16 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/tools/detach/<tool_id> 
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Detaches a tool from the agent, removing that tool from the agent’s tool list. The tool itself is not deleted from the system; it just will no longer be accessible by that agent.
+**Description:** Detaches a tool from the agent, removing that tool from the agent's tool list. The tool itself is not deleted from the system; it just will no longer be accessible by that agent.
 
-**Response Fields:** Returns the agent object after removal of the tool. The agent’s **`tools`** list will no longer include the specified tool. Otherwise, the agent’s fields remain as described in **List Agents**. Key things to verify in the response:
+**Response Fields:** Returns the agent object after removal of the tool. The agent's **`tools`** list will no longer include the specified tool. Otherwise, the agent's fields remain as described in **List Agents**. Key things to verify in the response:
 
 * The `tools` array should not contain the tool with the given `tool_id` (confirm by checking `id` fields in the list).
-* The rest of the agent’s configuration in the response is unchanged aside from any metadata updates like `last_updated_by_id`.
+* The rest of the agent's configuration in the response is unchanged aside from any metadata updates like `last_updated_by_id`.
 
 All standard agent fields (see above) are included in the response for completeness.
 
-### GET `/v1/agents/{agent_id}/sources` – List Agent’s Sources
+### GET `/v1/agents/{agent_id}/sources` – List Agent's Sources
 
 ```bash
 curl https://api.letta.com/v1/agents/<agent_id>/sources \
@@ -256,7 +256,7 @@ curl https://api.letta.com/v1/agents/<agent_id>/sources \
 * **`name`** (string): Name of the data source.
 * **`description`** (string): Description of the source (what kind of data it contains or its purpose).
 * **`instructions`** (string): Instructions or notes on how the source should be used by the agent.
-* **`embedding_config`** (object): The embedding model configuration used for this source’s content (same structure as agent’s embedding\_config, with fields like `embedding_model`, `embedding_dim`, etc.).
+* **`embedding_config`** (object): The embedding model configuration used for this source's content (same structure as agent's embedding\_config, with fields like `embedding_model`, `embedding_dim`, etc.).
 * **`metadata`** (object): Arbitrary metadata attached to the source.
 * **`created_by_id`**, **`last_updated_by_id`** (string): Who created/last updated this source.
 * **`created_at`**, **`updated_at`** (datetime): When the source was created and last updated.
@@ -281,9 +281,9 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/sources/detach/<source_
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Detaches a data source from the agent, removing that source’s content from the agent’s accessible memory. The source itself remains in the system, but the agent will no longer reference its passages.
+**Description:** Detaches a data source from the agent, removing that source's content from the agent's accessible memory. The source itself remains in the system, but the agent will no longer reference its passages.
 
-**Response Fields:** Returns the agent object after detaching the source. The agent’s **`sources`** list will no longer include the specified source. The response includes all standard agent fields, identical to those described in **List Agents**. Key confirmation is that the `sources` array no longer contains the source with the given ID. (All other agent properties are returned for completeness.)
+**Response Fields:** Returns the agent object after detaching the source. The agent's **`sources`** list will no longer include the specified source. The response includes all standard agent fields, identical to those described in **List Agents**. Key confirmation is that the `sources` array no longer contains the source with the given ID. (All other agent properties are returned for completeness.)
 
 ### GET `/v1/agents/{agent_id}/core-memory/blocks/{block_label}` – Retrieve Core Memory Block
 
@@ -292,7 +292,7 @@ curl https://api.letta.com/v1/agents/<agent_id>/core-memory/blocks/<block_label>
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Retrieves a single core memory **Block** from an agent’s memory by its label (or name). Core memory blocks are segments of persistent memory (for example, persona definitions or long-term facts) that reside in the agent’s context window. This endpoint lets you fetch the content and attributes of a specific block.
+**Description:** Retrieves a single core memory **Block** from an agent's memory by its label (or name). Core memory blocks are segments of persistent memory (for example, persona definitions or long-term facts) that reside in the agent's context window. This endpoint lets you fetch the content and attributes of a specific block.
 
 **Response Fields:** Returns a block object with the following fields:
 
@@ -300,8 +300,8 @@ curl https://api.letta.com/v1/agents/<agent_id>/core-memory/blocks/<block_label>
 * **`limit`** (integer): The character limit of this block (maximum length).
 * **`name`** (string, optional): The name of the block if it is a template block (otherwise may be empty).
 * **`is_template`** (boolean): Indicates if this block is a template (pre-defined structure) vs. dynamic content.
-* **`label`** (string, optional): The label or role of the block (e.g., `"human"` or `"persona"` indicating how it’s used in context).
-* **`description`** (string, optional): A description of this block’s purpose or content.
+* **`label`** (string, optional): The label or role of the block (e.g., `"human"` or `"persona"` indicating how it's used in context).
+* **`description`** (string, optional): A description of this block's purpose or content.
 * **`metadata`** (object, optional): Metadata associated with the block (if any).
 * **`id`** (string, optional): The unique ID of the block (prefixed `"block-"`). In many cases, the `label` is the primary key used, but an ID may also be present.
 * **`created_by_id`** (string, optional): User ID who created this block (if applicable).
@@ -329,7 +329,7 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/core-memory/blocks/<blo
 }
 ```
 
-**Response Fields:** Returns the updated block object with the same fields as in **Retrieve Core Memory Block**, reflecting the new values. Specifically, you should see the updated `value` and any other changed fields. Unmodified fields remain as before. For completeness, the response also includes metadata fields like `id`, `created_by_id`, etc., to confirm the block’s identity.
+**Response Fields:** Returns the updated block object with the same fields as in **Retrieve Core Memory Block**, reflecting the new values. Specifically, you should see the updated `value` and any other changed fields. Unmodified fields remain as before. For completeness, the response also includes metadata fields like `id`, `created_by_id`, etc., to confirm the block's identity.
 
 ### PATCH `/v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}` – Attach Core Memory Block
 
@@ -338,9 +338,9 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/core-memory/blocks/atta
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** **(Advanced)** Attaches an existing memory block (usually one that was in archival storage or a template) back into the agent’s **core memory**. In practice, this moves a memory block into the agent’s active context (core memory) so that it will be included in the prompt. Typically used in conjunction with detaching/archiving memory.
+**Description:** **(Advanced)** Attaches an existing memory block (usually one that was in archival storage or a template) back into the agent's **core memory**. In practice, this moves a memory block into the agent's active context (core memory) so that it will be included in the prompt. Typically used in conjunction with detaching/archiving memory.
 
-**Response Fields:** Returns the full agent object after the block has been attached into core memory. The key difference will be in the agent’s **`memory.blocks`** array: it will now include the block with the given `block_id` among the active blocks. All agent fields (as listed under **List Agents**) are returned; check that the intended block appears under `memory.blocks`. (The returned agent data lets you verify the operation’s success.)
+**Response Fields:** Returns the full agent object after the block has been attached into core memory. The key difference will be in the agent's **`memory.blocks`** array: it will now include the block with the given `block_id` among the active blocks. All agent fields (as listed under **List Agents**) are returned; check that the intended block appears under `memory.blocks`. (The returned agent data lets you verify the operation's success.)
 
 ### PATCH `/v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}` – Detach Core Memory Block
 
@@ -349,9 +349,9 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/core-memory/blocks/deta
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Detaches a memory block from the agent’s core memory. This effectively **archives** that block (the block is removed from the active context; the agent will no longer use it in prompts unless re-attached). The block isn’t deleted entirely; it can potentially be recalled or remains in long-term storage.
+**Description:** Detaches a memory block from the agent's core memory. This effectively **archives** that block (the block is removed from the active context; the agent will no longer use it in prompts unless re-attached). The block isn't deleted entirely; it can potentially be recalled or remains in long-term storage.
 
-**Response Fields:** Returns the updated agent object. The agent’s **`memory.blocks`** list will no longer contain the block with the specified `block_id`. All other agent fields are included in the response (see **List Agents** for full list). You can confirm success by checking that `memory.blocks` in the response is missing the detached block, and possibly by an updated `last_updated_by_id` timestamp.
+**Response Fields:** Returns the updated agent object. The agent's **`memory.blocks`** list will no longer contain the block with the specified `block_id`. All other agent fields are included in the response (see **List Agents** for full list). You can confirm success by checking that `memory.blocks` in the response is missing the detached block, and possibly by an updated `last_updated_by_id` timestamp.
 
 ### GET `/v1/agents/{agent_id}/messages` – List Messages (Agent Chat History)
 
@@ -360,7 +360,7 @@ curl https://api.letta.com/v1/agents/<agent_id>/messages \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Retrieves the message history (conversation log) for the specified agent. This includes all messages (user, assistant, system, etc.) stored for that agent’s current session or across sessions, depending on memory settings. By default, it returns the most recent messages (with pagination support to get more).
+**Description:** Retrieves the message history (conversation log) for the specified agent. This includes all messages (user, assistant, system, etc.) stored for that agent's current session or across sessions, depending on memory settings. By default, it returns the most recent messages (with pagination support to get more).
 
 **Response Fields:** Returns a JSON array of message objects. Each message in the list can be one of several **message types**, each with slightly different fields:
 
@@ -368,31 +368,31 @@ Common fields across message types include:
 
 * **`id`** (string): Unique message identifier.
 * **`date`** (string): Timestamp of the message (may be in ISO format or a custom format).
-* **`name`** (string): Name associated with the message sender (for system/assistant messages this might be a role or empty, for user it could be the user’s name).
+* **`name`** (string): Name associated with the message sender (for system/assistant messages this might be a role or empty, for user it could be the user's name).
 * **`message_type`** (string): Type of message, e.g., `"user_message"`, `"system_message"`, `"assistant_message"`, `"reasoning_message"`, etc.. This indicates which variant of message object it is.
 * **`sender_id`** (string): ID of the sender (could be user ID for user messages, agent ID for assistant messages, etc.).
 * **`step_id`** (string, optional): If the message is associated with a reasoning or tool execution step, this links to a Step ID (see Steps section).
-* **`otid`** (string, optional): An “operation ID” or tracing ID if the message is part of a tool call/return chain.
+* **`otid`** (string, optional): An "operation ID" or tracing ID if the message is part of a tool call/return chain.
 * **`content`** (list or object): The content of the message. For most messages, this is a list of content segments (each segment might have a `type` and actual text). For example, assistant messages may include an array with different content types (normal text, or special types like omitted reasoning). User messages typically have a text content segment.
 
 Depending on `message_type`, additional fields may appear:
 
 * **Tool Call / Tool Return messages:** These will include fields like `tool_calls` (an array describing tool function calls made during the message), `tool_call_id` (an ID linking to a specific tool call), and `tool_returns` (results from tools).
-* **Reasoning messages:** These might include details of the AI’s reasoning process (if such are exposed).
+* **Reasoning messages:** These might include details of the AI's reasoning process (if such are exposed).
 * **Assistant messages:** Could have similar fields to user messages but are generated by the agent.
 
 In the API documentation, messages are categorized by type with specific property sets (e.g., System Message object, User Message object, Reasoning Message object, Hidden Reasoning, Tool Call, Tool Return, Assistant Message). Each category has a defined set of properties. For simplicity:
 
 * **System Message:** Typically has `id, date, content` (system instructions at conversation start).
-* **User Message:** `id, date, sender_id (user ID), content` of the user’s input.
-* **Assistant Message:** `id, date, content` of the agent’s reply; may include references to tool usage (if any).
-* **Reasoning Message:** Internal thoughts (usually hidden unless specifically requested); contain content representing the agent’s reasoning.
+* **User Message:** `id, date, sender_id (user ID), content` of the user's input.
+* **Assistant Message:** `id, date, content` of the agent's reply; may include references to tool usage (if any).
+* **Reasoning Message:** Internal thoughts (usually hidden unless specifically requested); contain content representing the agent's reasoning.
 * **Tool Call Message:** Captures when the agent invoked a tool (with details of the function and arguments).
 * **Tool Return Message:** Captures the result of a tool invocation (stdout/stderr outputs).
 
 The endpoint returns the messages in chronological order (oldest first) by default, limited by the `limit` parameter (default 10). Pagination is supported via `after`/`before` cursors (message IDs).
 
-**Query Parameters:** You can use `before`, `after` to paginate through messages, `limit` to adjust the number of messages returned (default 10). There’s also `group_id` to filter messages to a particular group conversation (if the agent is in a multi-agent group). Advanced options like `use_assistant_message` toggle how messages from tools are interpreted (usually keep at default).
+**Query Parameters:** You can use `before`, `after` to paginate through messages, `limit` to adjust the number of messages returned (default 10). There's also `group_id` to filter messages to a particular group conversation (if the agent is in a multi-agent group). Advanced options like `use_assistant_message` toggle how messages from tools are interpreted (usually keep at default).
 
 ### POST `/v1/agents/{agent_id}/messages` – Send Message (Agent Interaction)
 
@@ -405,7 +405,7 @@ curl -X POST https://api.letta.com/v1/agents/<agent_id>/messages \
          }'
 ```
 
-**Description:** Sends a new message (typically from a user) to the agent and processes it, returning the agent’s response. This is the primary endpoint to interact with an agent conversationally. You provide a list of messages (usually the latest user message, and optionally any system or context messages) and the agent will produce a reply.
+**Description:** Sends a new message (typically from a user) to the agent and processes it, returning the agent's response. This is the primary endpoint to interact with an agent conversationally. You provide a list of messages (usually the latest user message, and optionally any system or context messages) and the agent will produce a reply.
 
 **Request Body:** A JSON object with:
 
@@ -416,13 +416,13 @@ curl -X POST https://api.letta.com/v1/agents/<agent_id>/messages \
 
 **Response Fields:** Returns an object with:
 
-* **`messages`** (list of message objects): The messages generated by the agent in response. Typically, this will include the assistant’s reply as an **Assistant Message** object. If the agent’s reasoning or tool use is exposed, the list may also include **Reasoning** or **Tool** message objects. By default, you will usually see one assistant message here containing the agent’s answer. (The message object structure is the same as described under **List Messages** above – e.g., an assistant message with `id, content, etc.` and possibly `tool_calls` if the agent used tools).
+* **`messages`** (list of message objects): The messages generated by the agent in response. Typically, this will include the assistant's reply as an **Assistant Message** object. If the agent's reasoning or tool use is exposed, the list may also include **Reasoning** or **Tool** message objects. By default, you will usually see one assistant message here containing the agent's answer. (The message object structure is the same as described under **List Messages** above – e.g., an assistant message with `id, content, etc.` and possibly `tool_calls` if the agent used tools).
 * **`usage`** (object): Usage statistics for this interaction. This may include token counts (prompt tokens, completion tokens, total tokens) and other information about the cost of the operation. Fields might be:
 
   * `prompt_tokens`, `completion_tokens`, `total_tokens` – indicating how many tokens were in the input and output.
   * Other metrics like `model` used, processing time, etc., depending on implementation.
 
-This synchronous endpoint processes the conversation turn and gives you the agent’s reply immediately (suitable for real-time chat).
+This synchronous endpoint processes the conversation turn and gives you the agent's reply immediately (suitable for real-time chat).
 
 ### PATCH `/v1/agents/{agent_id}/messages/{message_id}` – Modify Message
 
@@ -433,11 +433,11 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/messages/<message_id> \
      -d '{ "content": "corrected or updated text" }'
 ```
 
-**Description:** Updates the content or details of a specific message in the agent’s history. This can be used to correct a message after the fact (for example, editing a user’s message or a system prompt in the history) or to add annotations.
+**Description:** Updates the content or details of a specific message in the agent's history. This can be used to correct a message after the fact (for example, editing a user's message or a system prompt in the history) or to add annotations.
 
-**Request Body:** You provide the fields to update. Common usage is to change the `content` of a message. Depending on message type, there are different allowed updates (the API defines different update object schemas for system vs user vs assistant messages, etc. – the documentation references “Update System Message object”, “Update User Message object”, etc., each with certain properties). In practice, providing a new `content` string is supported for most message types.
+**Request Body:** You provide the fields to update. Common usage is to change the `content` of a message. Depending on message type, there are different allowed updates (the API defines different update object schemas for system vs user vs assistant messages, etc. – the documentation references "Update System Message object", "Update User Message object", etc., each with certain properties). In practice, providing a new `content` string is supported for most message types.
 
-**Response Fields:** Returns the updated message object. The message will reflect changes such as new `content` text. The response can vary by message type: the API might return the full message or a standardized representation. According to the docs, the response can be one of multiple variants (System Message, User Message, etc.). In each case, you will get the message’s fields (id, content, etc.) updated. For example, if you edited a system message, you’d receive a System Message object with its properties, if you edited a user message, a User Message object, and so on. (The variant breakdown is managed internally – essentially you get the same message back in the same structure it would appear in list messages.)
+**Response Fields:** Returns the updated message object. The message will reflect changes such as new `content` text. The response can vary by message type: the API might return the full message or a standardized representation. According to the docs, the response can be one of multiple variants (System Message, User Message, etc.). In each case, you will get the message's fields (id, content, etc.) updated. For example, if you edited a system message, you'd receive a System Message object with its properties, if you edited a user message, a User Message object, and so on. (The variant breakdown is managed internally – essentially you get the same message back in the same structure it would appear in list messages.)
 
 ### POST `/v1/agents/{agent_id}/messages/async` – Send Message Asynchronously
 
@@ -448,11 +448,11 @@ curl -X POST https://api.letta.com/v1/agents/<agent_id>/messages/async \
      -d '{ "messages": [ { "role": "user", "content": [ ... ] } ] }'
 ```
 
-**Description:** Initiates processing of a message by the agent asynchronously. Instead of waiting for the agent’s response within the request, this returns immediately with a **Run ID**, and the agent will process the message in the background. This is useful for long-running tasks or if you want to poll or get a callback when the agent’s answer is ready.
+**Description:** Initiates processing of a message by the agent asynchronously. Instead of waiting for the agent's response within the request, this returns immediately with a **Run ID**, and the agent will process the message in the background. This is useful for long-running tasks or if you want to poll or get a callback when the agent's answer is ready.
 
 **Response Fields:** Returns a **Run** object (representing the asynchronous job) with fields:
 
-* **`id`** (string): The run’s unique ID (e.g., `"run-<UUID>"`). You will use this ID to check the status or retrieve results later (see **Runs** endpoints).
+* **`id`** (string): The run's unique ID (e.g., `"run-<UUID>"`). You will use this ID to check the status or retrieve results later (see **Runs** endpoints).
 * **`status`** (string): The current status of the run, e.g. `"not_started"`, `"running"`, `"completed"`, `"failed"`, etc.. Initially it may be `"not_started"` or `"running"`.
 * **`created_by_id`**, **`last_updated_by_id`** (string): Who initiated the run (likely your user ID) and last update actor.
 * **`created_at`**, **`updated_at`** (datetime): Timestamps for creation and last update of the run record.
@@ -464,7 +464,7 @@ curl -X POST https://api.letta.com/v1/agents/<agent_id>/messages/async \
 * **`callback_status_code`** (integer, optional): HTTP status code returned by your callback endpoint (if called).
 * **`request_config`** (object): Echoes the configuration used for this request (such as the `use_assistant_message` settings). In the example, it includes flags like `"use_assistant_message": true` etc., confirming how the message was interpreted.
 
-After initiating an async send, you would typically use the **Runs** endpoints (see below) to query the run’s status or to retrieve the output once it’s completed.
+After initiating an async send, you would typically use the **Runs** endpoints (see below) to query the run's status or to retrieve the output once it's completed.
 
 ### PATCH `/v1/agents/{agent_id}/reset-messages` – Reset Agent Messages
 
@@ -475,15 +475,15 @@ curl -X PATCH https://api.letta.com/v1/agents/<agent_id>/reset-messages \
 
 **Description:** Clears **all conversation messages** for the agent, essentially resetting the chat history/state. This is akin to starting a fresh conversation with the agent. Optionally, you can have default initial system messages re-inserted after the reset.
 
-**Query Parameter:** `add_default_initial_messages` (boolean, optional, default `false`). If `true`, after wiping the messages the system will add the agent’s default system messages (if any) back to the history (for example, a default system prompt or persona message that new conversations normally start with).
+**Query Parameter:** `add_default_initial_messages` (boolean, optional, default `false`). If `true`, after wiping the messages the system will add the agent's default system messages (if any) back to the history (for example, a default system prompt or persona message that new conversations normally start with).
 
 **Response Fields:** Returns the full agent object, similar to **Retrieve Agent**. Notably:
 
-* The agent’s **`message_ids`** list will be empty (or contain only any default initial message IDs if those were added). In other words, the agent’s conversation memory is cleared.
+* The agent's **`message_ids`** list will be empty (or contain only any default initial message IDs if those were added). In other words, the agent's conversation memory is cleared.
 * All other agent configuration fields (tools, memory, etc.) remain unchanged. The response includes them all for completeness (see **List Agents** fields).
 * Essentially, you get the agent state post-reset: no recent messages, and possibly a fresh system message if defaults were added.
 
-This allows you to programmatically clear an agent’s conversation context without deleting the agent itself.
+This allows you to programmatically clear an agent's conversation context without deleting the agent itself.
 
 ---
 
@@ -498,20 +498,20 @@ curl https://api.letta.com/v1/tools/ \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Retrieves all tools available in the system (for the authenticated user’s organization). This list includes custom tools you’ve created as well as any built-in or base tools provided by the system.
+**Description:** Retrieves all tools available in the system (for the authenticated user's organization). This list includes custom tools you've created as well as any built-in or base tools provided by the system.
 
 **Response Fields:** Returns an array of tool objects. Each tool object includes:
 
 * **`id`** (string): The unique tool ID (format: **`tool-XXXXXXXX`**).
 * **`tool_type`** (enum): The type/category of the tool (e.g., `"custom"`, or other categories if defined). Possible values include custom, base, composio, etc. (system-defined list).
 * **`description`** (string): A description of what the tool does.
-* **`source_type`** (string): The technology or format of the tool’s implementation (e.g., `"python"` for a Python function, `"external"` for an API call, etc.).
+* **`source_type`** (string): The technology or format of the tool's implementation (e.g., `"python"` for a Python function, `"external"` for an API call, etc.).
 * **`name`** (string): The callable name of the tool (function name that agents use to invoke it).
 * **`tags`** (list of strings): Tags/keywords attached to the tool for categorization.
 * **`source_code`** (string): The code or content of the tool. For a custom code tool, this is the actual source code (function body) that will be executed.
-* **`json_schema`** (object): JSON Schema describing the tool’s input/output (if applicable). (Often an empty object `{}` if not used.)
-* **`args_json_schema`** (object): JSON Schema describing the tool’s expected arguments structure.
-* **`return_char_limit`** (integer): The maximum number of characters the tool’s output can produce. This prevents tools from returning excessively large results.
+* **`json_schema`** (object): JSON Schema describing the tool's input/output (if applicable). (Often an empty object `{}` if not used.)
+* **`args_json_schema`** (object): JSON Schema describing the tool's expected arguments structure.
+* **`return_char_limit`** (integer): The maximum number of characters the tool's output can produce. This prevents tools from returning excessively large results.
 * **`created_by_id`** (string): The user ID of who created the tool.
 * **`last_updated_by_id`** (string): The user ID of who last updated the tool.
 * **`metadata_`** (object): A metadata dictionary for additional info about the tool.
@@ -536,9 +536,9 @@ curl -X POST https://api.letta.com/v1/tools/ \
          }'
 ```
 
-**Description:** Registers a new custom tool in the system. You must provide details such as the tool’s name (function name), description, type, and implementation code or configuration. Once created, the tool can be attached to agents.
+**Description:** Registers a new custom tool in the system. You must provide details such as the tool's name (function name), description, type, and implementation code or configuration. Once created, the tool can be attached to agents.
 
-**Response Fields:** Returns the newly created tool object, with all the fields as described in **List Tools** above (including its assigned `id`). For example, you’ll see the `id` (generated), `name`, `description`, `tool_type`, etc., matching what was provided, and default or system-filled values for any omitted fields (e.g., `created_by_id` will be your user ID, `metadata_` might be empty).
+**Response Fields:** Returns the newly created tool object, with all the fields as described in **List Tools** above (including its assigned `id`). For example, you'll see the `id` (generated), `name`, `description`, `tool_type`, etc., matching what was provided, and default or system-filled values for any omitted fields (e.g., `created_by_id` will be your user ID, `metadata_` might be empty).
 
 ### PUT `/v1/tools/` – Upsert Tool
 
@@ -549,7 +549,7 @@ curl -X PUT https://api.letta.com/v1/tools/ \
      -d '{ ... }'
 ```
 
-**Description:** Creates or updates a tool in one call (“upsert” = update if exists, otherwise insert). You typically include an `id` or unique key so the system knows if it’s an existing tool. If a tool with the given identifier exists, it will be updated with the provided fields; if not, a new tool is created.
+**Description:** Creates or updates a tool in one call ("upsert" = update if exists, otherwise insert). You typically include an `id` or unique key so the system knows if it's an existing tool. If a tool with the given identifier exists, it will be updated with the provided fields; if not, a new tool is created.
 
 **Response Fields:** Returns the tool object after upsert. If it created a new tool, it will resemble the **Create Tool** response; if it updated an existing tool, it will show the tool with updated fields. All standard tool fields are present.
 
@@ -562,7 +562,7 @@ curl -X POST https://api.letta.com/v1/tools/base \
      -d '{ ... }'
 ```
 
-**Description:** (Advanced) Upserts the **base tools**. Base tools are a set of default tools (possibly provided by Letta or configured as a baseline). This endpoint allows adding/updating multiple base tools in bulk. It’s generally used internally or for administrative updates of default tool sets.
+**Description:** (Advanced) Upserts the **base tools**. Base tools are a set of default tools (possibly provided by Letta or configured as a baseline). This endpoint allows adding/updating multiple base tools in bulk. It's generally used internally or for administrative updates of default tool sets.
 
 **Response Fields:** Returns a list of base tool objects that were upserted or affected, each with standard tool fields. Essentially confirms the base tool configurations now in place.
 
@@ -618,7 +618,7 @@ curl -X POST https://api.letta.com/v1/tools/composio \
 
 **Description:** Adds a new tool to Letta based on a Composio app action. You specify which app and action to create a tool for, and provide any configuration needed (like auth keys or parameters). The system then creates a tool wrapping that external action.
 
-**Response Fields:** Returns the created tool object, with the standard fields (it will likely have `tool_type` reflecting it’s a Composio type, the `name` might be auto-generated or based on the app-action, etc.). The important part is that this new tool can then be attached to agents like any other.
+**Response Fields:** Returns the created tool object, with the standard fields (it will likely have `tool_type` reflecting it's a Composio type, the `name` might be auto-generated or based on the app-action, etc.). The important part is that this new tool can then be attached to agents like any other.
 
 ### GET `/v1/tools/mcp` – List MCP Servers
 
@@ -642,7 +642,7 @@ curl -X PUT https://api.letta.com/v1/tools/mcp/servers \
 
 **Description:** Registers a new external MCP server with Letta. After adding, the tools provided by that server can be listed and added to agents.
 
-**Response Fields:** Returns the list of MCP servers now configured (including the newly added one), or a confirmation. The new server’s details (like an ID or name and URL) will be included.
+**Response Fields:** Returns the list of MCP servers now configured (including the newly added one), or a confirmation. The new server's details (like an ID or name and URL) will be included.
 
 ### GET `/v1/tools/mcp/{server_id}/tools` – List MCP Tools by Server
 
@@ -653,7 +653,7 @@ curl https://api.letta.com/v1/tools/mcp/<server_id>/tools \
 
 **Description:** Retrieves all tools that are available from a specific MCP server (by server ID or name). These are external tools hosted on that remote server.
 
-**Response Fields:** A list of tool definitions coming from the MCP server. They likely have similar fields (name, description, etc.), but are not yet local tools in Letta until added. This is for viewing what’s available on that server.
+**Response Fields:** A list of tool definitions coming from the MCP server. They likely have similar fields (name, description, etc.), but are not yet local tools in Letta until added. This is for viewing what's available on that server.
 
 ### POST `/v1/tools/mcp` – Add MCP Tool
 
@@ -664,9 +664,9 @@ curl -X POST https://api.letta.com/v1/tools/mcp/tools \
      -d '{ "server_id": "<id>", "tool_name": "<remote_tool_name>" }'
 ```
 
-**Description:** Adds a tool from an MCP server into Letta’s tool list. Essentially, you specify which tool (by name or ID) on which server to import, and Letta will create a local tool that proxies to the remote implementation.
+**Description:** Adds a tool from an MCP server into Letta's tool list. Essentially, you specify which tool (by name or ID) on which server to import, and Letta will create a local tool that proxies to the remote implementation.
 
-**Response Fields:** Returns the created local tool object (with standard fields like `id`, `name`, etc.). The `source_type` or other metadata may indicate it’s an MCP proxy. Once created, it behaves like a normal tool that can be attached to agents.
+**Response Fields:** Returns the created local tool object (with standard fields like `id`, `name`, etc.). The `source_type` or other metadata may indicate it's an MCP proxy. Once created, it behaves like a normal tool that can be attached to agents.
 
 ### DELETE `/v1/tools/mcp/servers/{server_id}` – Delete MCP Server from Config
 
@@ -700,7 +700,7 @@ curl https://api.letta.com/v1/sources/ \
 * **`name`** (string): Name of the data source.
 * **`description`** (string): Description of the source content or purpose.
 * **`instructions`** (string): Instructions/notes on using the source (e.g., how an agent should reference it).
-* **`embedding_config`** (object): The embedding model settings for this source’s content (with fields: `embedding_endpoint_type`, `embedding_model`, `embedding_dim`, `embedding_chunk_size`, etc.). This config dictates how the source’s content is vectorized for recall.
+* **`embedding_config`** (object): The embedding model settings for this source's content (with fields: `embedding_endpoint_type`, `embedding_model`, `embedding_dim`, `embedding_chunk_size`, etc.). This config dictates how the source's content is vectorized for recall.
 * **`metadata`** (object): Arbitrary metadata tags for the source.
 * **`created_by_id`** (string): User ID of the creator of the source.
 * **`last_updated_by_id`** (string): User ID of who last updated it.
@@ -724,7 +724,7 @@ curl -X POST https://api.letta.com/v1/sources/ \
          }'
 ```
 
-**Description:** Creates a new data source. Initially, a source has no content until files or passages are added (via separate file upload or passage creation not shown here). You define the source’s name, description, and how to embed its content.
+**Description:** Creates a new data source. Initially, a source has no content until files or passages are added (via separate file upload or passage creation not shown here). You define the source's name, description, and how to embed its content.
 
 **Response Fields:** Returns the created source object with all fields as in **List Sources**. Key fields to check are the assigned `id` and that the `embedding_config` reflects your input or defaults. The source initially will have no passages/files until you add some.
 
@@ -783,7 +783,7 @@ curl https://api.letta.com/v1/sources/id/<source_name> \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Convenience endpoint to retrieve a source’s ID by its name. If you know the human-readable name of a source, you can get the `id` (which is needed for other API calls) without listing all sources.
+**Description:** Convenience endpoint to retrieve a source's ID by its name. If you know the human-readable name of a source, you can get the `id` (which is needed for other API calls) without listing all sources.
 
 **Response Fields:** Returns an object like `{ "id": "source-1234abcd..." }` if a source with that name exists. If not, it might return a 404 or an empty result.
 
@@ -791,7 +791,7 @@ curl https://api.letta.com/v1/sources/id/<source_name> \
 
 * **List Source Files:** *(`GET /v1/sources/{source_id}/files`)* – Returns metadata of files uploaded to the source (file names, sizes, etc.). Files represent raw documents added to the source.
 
-* **Upload File to Source:** *(`POST /v1/sources/{source_id}/files`)* – Allows uploading a new file (document) to the data source. The file’s contents will be processed into passages for the agent’s memory. (Typically a multipart form upload.)
+* **Upload File to Source:** *(`POST /v1/sources/{source_id}/files`)* – Allows uploading a new file (document) to the data source. The file's contents will be processed into passages for the agent's memory. (Typically a multipart form upload.)
 
 * **Delete File From Source:** *(`DELETE /v1/sources/{source_id}/files/{file_id}`)* – Removes a file (and its associated passages) from the source.
 
@@ -817,16 +817,16 @@ curl https://api.letta.com/v1/groups/ \
 **Response Fields:** Returns an array of group objects. Each group object has:
 
 * **`id`** (string): Unique identifier of the group.
-* **`manager_type`** (string): The strategy for the group’s manager agent (e.g., `"round_robin"`, `"all_to_one"`, etc.). This defines how messages or turns are assigned among group members.
+* **`manager_type`** (string): The strategy for the group's manager agent (e.g., `"round_robin"`, `"all_to_one"`, etc.). This defines how messages or turns are assigned among group members.
 * **`agent_ids`** (list of strings): The IDs of member agents that belong to this group.
-* **`description`** (string): A description of the group’s purpose or behavior.
+* **`description`** (string): A description of the group's purpose or behavior.
 * **`shared_block_ids`** (list of strings, optional): IDs of memory blocks that are shared among agents in the group (if any).
-* **`manager_agent_id`** (string, optional): If the group has a designated “manager” agent, this is the agent ID that orchestrates the group.
+* **`manager_agent_id`** (string, optional): If the group has a designated "manager" agent, this is the agent ID that orchestrates the group.
 * **`termination_token`** (string, optional): A special token or keyword that, if encountered, might trigger termination of the group interaction.
 * **`max_turns`** (integer, optional): Maximum number of turns in a group conversation before it should end or rotate.
-* **`sleeptime_agent_frequency`** (integer, optional): Frequency (in turns) at which a “sleeptime” memory management agent should intervene (used if one agent in group manages long-term memory asynchronously).
+* **`sleeptime_agent_frequency`** (integer, optional): Frequency (in turns) at which a "sleeptime" memory management agent should intervene (used if one agent in group manages long-term memory asynchronously).
 * **`turns_counter`** (integer, optional): Counter of how many turns have happened in the group so far.
-* **`last_processed_message_id`** (string, optional): The ID of the last message that was processed by the group’s manager (for tracking state).
+* **`last_processed_message_id`** (string, optional): The ID of the last message that was processed by the group's manager (for tracking state).
 * **`max_message_buffer_length`** (integer, optional): Desired max number of recent messages each agent in the group should hold in context. This is a guideline for memory management (to avoid context overflow).
 * **`min_message_buffer_length`** (integer, optional): Desired minimum number of messages to retain.
 
@@ -869,7 +869,7 @@ curl https://api.letta.com/v1/groups/<group_id> \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Fetches a specific group’s details by ID.
+**Description:** Fetches a specific group's details by ID.
 
 **Response Fields:** Returns the group object (fields same as in **List Groups**) for the given ID.
 
@@ -882,7 +882,7 @@ curl -X PATCH https://api.letta.com/v1/groups/<group_id> \
      -d '{ "agent_ids": ["agent1","agent3"] }'
 ```
 
-**Description:** Updates the group’s configuration. You can add/remove agents by changing `agent_ids`, change the `manager_type`, update description, etc.
+**Description:** Updates the group's configuration. You can add/remove agents by changing `agent_ids`, change the `manager_type`, update description, etc.
 
 **Response Fields:** Returns the updated group object with new values in place. For example, if you changed the `agent_ids`, the returned `agent_ids` list will reflect that change.
 
@@ -897,11 +897,11 @@ curl -X DELETE https://api.letta.com/v1/groups/<group_id> \
 
 **Response Fields:** On success, an empty response or confirmation. The group will no longer appear in **List Groups**.
 
-*(In an agent’s perspective, when an agent is part of a group, its `multi_agent_group` field (in agent details) will reference the group configuration. Managing groups via these endpoints updates which agents have that link.)*
+*(In an agent's perspective, when an agent is part of a group, its `multi_agent_group` field (in agent details) will reference the group configuration. Managing groups via these endpoints updates which agents have that link.)*
 
 ## Identities API Endpoints
 
-**Identities** represent distinct personas or roles that can be associated with agents or conversations. They can be used, for example, to isolate conversations or switch the “identity” of an agent (like different users or characters).
+**Identities** represent distinct personas or roles that can be associated with agents or conversations. They can be used, for example, to isolate conversations or switch the "identity" of an agent (like different users or characters).
 
 ### GET `/v1/identities/` – List Identities
 
@@ -916,7 +916,7 @@ curl https://api.letta.com/v1/identities/ \
 
 * **`id`** (string): Unique identity ID (e.g., `"identity-XXXXXXXX"`).
 * **`name`** (string): Name of the identity (for example, a user name or character name).
-* **`description`** (string, optional): A description of this identity (could be a persona’s background or context).
+* **`description`** (string, optional): A description of this identity (could be a persona's background or context).
 * **`metadata`** (object, optional): Additional info for the identity.
 
 (The exact fields depend on how identities are defined in Letta. These are typically simpler structures representing a user or persona.)
@@ -997,13 +997,13 @@ curl https://api.letta.com/v1/models/llm \
 
 **Response Fields:** Returns a list of model entries. Each entry might include:
 
-* **`name`** (string): The model’s name or identifier (e.g., `"gpt-3.5-turbo"`, `"llama-2-13b"`).
+* **`name`** (string): The model's name or identifier (e.g., `"gpt-3.5-turbo"`, `"llama-2-13b"`).
 * **`provider`** (string): Which provider or category this model belongs to (e.g., `"openai"`, `"local"`).
 * **`context_window`** (integer): The maximum context length (in tokens) of the model.
 * **`description`** (string, optional): A human-friendly description of the model.
 * **`capabilities`** (object, optional): Any flags about what the model supports (e.g., functions, streaming, etc.).
 
-This lets you see what you can set in an agent’s `llm_config`.
+This lets you see what you can set in an agent's `llm_config`.
 
 ### GET `/v1/models/embedding` – List Embedding Models
 
@@ -1060,7 +1060,7 @@ curl https://api.letta.com/v1/blocks/<block_id> \
 
 **Description:** Fetches a block by its ID from the global store.
 
-**Response Fields:** Same as **Retrieve Core Memory Block** – the block’s content and attributes.
+**Response Fields:** Same as **Retrieve Core Memory Block** – the block's content and attributes.
 
 ### DELETE `/v1/blocks/{block_id}` – Delete Block
 
@@ -1069,7 +1069,7 @@ curl -X DELETE https://api.letta.com/v1/blocks/<block_id> \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Deletes a memory block from the global store. If this block was attached to any agents, those agents’ core memory should be updated (the block would effectively be detached or removed for them as well).
+**Description:** Deletes a memory block from the global store. If this block was attached to any agents, those agents' core memory should be updated (the block would effectively be detached or removed for them as well).
 
 **Response Fields:** Success yields empty/confirmation. The block will be gone from **List Blocks**.
 
@@ -1082,7 +1082,7 @@ curl -X PATCH https://api.letta.com/v1/blocks/<block_id> \
      -d '{ "value": "New content..." }'
 ```
 
-**Description:** Updates a global block’s fields (value, limit, etc.). If an agent has this block in its core memory, changes would reflect in that agent’s memory content as well (assuming it references by ID).
+**Description:** Updates a global block's fields (value, limit, etc.). If an agent has this block in its core memory, changes would reflect in that agent's memory content as well (assuming it references by ID).
 
 **Response Fields:** Returns the updated block object.
 
@@ -1099,9 +1099,9 @@ curl https://api.letta.com/v1/tags/ \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Retrieves all unique tags in use by the user’s resources. This can help in building filter UIs or understanding how things are categorized.
+**Description:** Retrieves all unique tags in use by the user's resources. This can help in building filter UIs or understanding how things are categorized.
 
-**Response Fields:** Returns a list of strings – each string is a tag that exists on at least one object (agent, tool, source, etc.). Example: `["sales", "support", "v1"]`. There is no additional metadata; it’s just the set of tag names.
+**Response Fields:** Returns a list of strings – each string is a tag that exists on at least one object (agent, tool, source, etc.). Example: `["sales", "support", "v1"]`. There is no additional metadata; it's just the set of tag names.
 
 ## Batches API Endpoints
 
@@ -1141,10 +1141,10 @@ curl -X POST https://api.letta.com/v1/batches/messages \
 
 * **`id`**: Batch run ID.
 * **`status`**: Initial status (`not_started` or `running`).
-* **`job_type`**: Likely indicates it’s a batch.
+* **`job_type`**: Likely indicates it's a batch.
 * **`metadata`** and any `callback_url` fields if provided.
 
-Essentially, you’ll use the batch ID to check on progress or retrieve results.
+Essentially, you'll use the batch ID to check on progress or retrieve results.
 
 ### GET `/v1/batches/runs/{batch_id}` – Retrieve Batch Run
 
@@ -1185,7 +1185,7 @@ curl https://api.letta.com/v1/batches/messages/<batch_id> \
 
 **Description:** After a messages batch run completes, this endpoint can retrieve all the messages/responses generated in that batch.
 
-**Response Fields:** Returns a list of message objects similar to **List Messages**, but aggregated from the batch’s activity. For example, if the batch sent a query to 5 agents, this might return 5 assistant message responses (one from each agent). Each message will likely have an associated agent or context so you know which agent’s response it is. (The exact format might include the agent\_id alongside each message.)
+**Response Fields:** Returns a list of message objects similar to **List Messages**, but aggregated from the batch's activity. For example, if the batch sent a query to 5 agents, this might return 5 assistant message responses (one from each agent). Each message will likely have an associated agent or context so you know which agent's response it is. (The exact format might include the agent\_id alongside each message.)
 
 ## Voice API Endpoint
 
@@ -1207,9 +1207,9 @@ curl -X POST https://api.letta.com/v1/voice/chat-completions \
 **Response Fields:** The output could be:
 
 * **`transcript`** (string): The text transcription of the input audio (what the user said).
-* **`response_text`** (string): The agent’s text response.
+* **`response_text`** (string): The agent's text response.
 * **`response_audio`** (binary or base64): An audio file (e.g., WAV/MP3) of the agent speaking the response.
-* **`message_id`** (string): ID of the generated message, if it’s recorded in history.
+* **`message_id`** (string): ID of the generated message, if it's recorded in history.
 
 The exact response may vary. It might return an audio stream or a URL to download the audio. In any case, this endpoint bridges voice and the text-based chat system.
 
@@ -1232,11 +1232,11 @@ curl https://api.letta.com/v1/templates/ \
 
 * **`templateId`** (string): Unique template identifier.
 * **`templateName`** (string): Name of the template.
-* **`description`** (string, optional): Description of the agent template (what kind of agent it’s for).
+* **`description`** (string, optional): Description of the agent template (what kind of agent it's for).
 * **`base_template_id`** (string, optional): If this template inherits or is derived from another base template.
 * Possibly fields listing default memory blocks, default tools, etc., that comprise the template (or these may be retrievable via other endpoints).
 
-This endpoint allows users to see what starting templates they have (for example, a “Customer Support Bot” template or “Sales Agent” template), which can then be used to create new agents quickly.
+This endpoint allows users to see what starting templates they have (for example, a "Customer Support Bot" template or "Sales Agent" template), which can then be used to create new agents quickly.
 
 *(Templates are often created from existing agents or via the UI; see the **Create Template From Agent** endpoint under Agents.)*
 
@@ -1333,7 +1333,7 @@ curl https://api.letta.com/v1/runs/<run_id> \
 
 **Description:** Retrieves the details of a specific run by ID. Use this to check the result or status of an async operation (like a message or batch).
 
-**Response Fields:** The run object with all its details. If the run is completed and produced a result, that result might be included here or via a different endpoint depending on the run type. For instance, an async message run might have the agent’s response in a field like `result_message` or reference to a message ID. A batch run would likely direct you to **Batch Messages** as we saw. Common fields: `status`, timing, etc., as described before for runs.
+**Response Fields:** The run object with all its details. If the run is completed and produced a result, that result might be included here or via a different endpoint depending on the run type. For instance, an async message run might have the agent's response in a field like `result_message` or reference to a message ID. A batch run would likely direct you to **Batch Messages** as we saw. Common fields: `status`, timing, etc., as described before for runs.
 
 ### DELETE `/v1/runs/{run_id}` – Delete Run
 
@@ -1350,7 +1350,7 @@ curl -X DELETE https://api.letta.com/v1/runs/<run_id> \
 
 ## Steps API Endpoints
 
-“Steps” refer to internal reasoning or action steps an agent takes during processing (especially if using a ReAct-like chain of thought). These endpoints let you inspect those steps.
+"Steps" refer to internal reasoning or action steps an agent takes during processing (especially if using a ReAct-like chain of thought). These endpoints let you inspect those steps.
 
 ### GET `/v1/steps/` – List Steps
 
@@ -1366,7 +1366,7 @@ curl https://api.letta.com/v1/steps/ \
 * **`id`** (string): Step ID.
 * **`run_id`** (string): The run (or message) ID this step is part of.
 * **`agent_id`** (string): The agent executing this step.
-* **`type`** (string): Step type (e.g., “thought”, “tool\_call”, “tool\_return”).
+* **`type`** (string): Step type (e.g., "thought", "tool\_call", "tool\_return").
 * **`input`** (object/string): The input to this step (e.g., the thought text or tool name and args).
 * **`output`** (object/string): The output of this step (e.g., the result of a tool, or the next thought).
 * **`timestamp`**: When it happened.
@@ -1378,7 +1378,7 @@ curl https://api.letta.com/v1/steps/<step_id> \
      -H "Authorization: Bearer <token>"
 ```
 
-**Description:** Fetches a specific step’s details.
+**Description:** Fetches a specific step's details.
 
 **Response Fields:** The step object (fields as above: id, type, input, output, etc. for that single step).
 
@@ -1461,10 +1461,16 @@ curl https://api.letta.com/v1/providers/check/<provider_id> \
 
 **Description:** Performs a health check or validation of the given provider configuration. For instance, it might attempt a test API call to verify that the credentials are correct and the service is reachable.
 
-**Response Fields:** Likely returns a status object, e.g.: `{ "status": "ok" }` if the provider is configured correctly, or details of any error (like “invalid API key” or network issues).
+**Response Fields:** Likely returns a status object, e.g.: `{ "status": "ok" }` if the provider is configured correctly, or details of any error (like "invalid API key" or network issues).
 
 This helps quickly debug provider setup issues.
 
 ---
 
-Each endpoint above plays a role in Letta’s ecosystem, from managing agents and their memories to integrating external tools and providers. This documentation should enable a development team to implement a PHP SDK with full coverage, as it details the requests and responses for every documented API endpoint on the Letta platform. Ensure to handle authentication (the `Authorization: Bearer <token>` header) for all calls, and handle optional fields or cloud-only features appropriately.
+Each endpoint above plays a role in Letta's ecosystem, from managing agents and their memories to integrating external tools and providers. This documentation should enable a development team to implement a PHP SDK with full coverage, as it details the requests and responses for every documented API endpoint on the Letta platform. Ensure to handle authentication (the `Authorization: Bearer <token>` header) for all calls, and handle optional fields or cloud-only features appropriately.
+
+---
+
+## License
+
+This documentation is licensed under CC-BY-SA 4.0 (Creative Commons Attribution-ShareAlike 4.0 International).
