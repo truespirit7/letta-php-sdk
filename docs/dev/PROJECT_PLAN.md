@@ -86,6 +86,10 @@
 - What is the minimum PHP version to support?
 - Will there be a need for middleware/hooks (e.g., for logging or custom retry logic)?
 
+## License
+
+CC-BY-SA (Creative Commons Attribution-ShareAlike 4.0 International)
+
 ---
 
 ## Detailed Phased Checklist
