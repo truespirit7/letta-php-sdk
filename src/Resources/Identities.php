@@ -6,18 +6,20 @@ use Letta\Http\HttpClient;
 
 /**
  * Resource class for /v1/identities endpoints.
+ *
+ * Provides methods to interact with Letta identity resources, including listing, creating, upserting, counting, retrieving, deleting, and modifying identities.
  */
 class Identities
 {
     /**
-     * @var HttpClient
+     * @var HttpClient HTTP client for making API requests.
      */
     private $http;
 
     /**
      * Identities constructor.
      *
-     * @param HttpClient $http
+     * @param HttpClient $http HTTP client instance
      */
     public function __construct(HttpClient $http)
     {
@@ -27,6 +29,10 @@ class Identities
     /**
      * List all identities.
      * GET /v1/identities/
+     *
+     * @param array $params Optional query parameters
+     * @return void
+     * @todo Implement
      */
     public function list(array $params = [])
     {
@@ -36,6 +42,9 @@ class Identities
     /**
      * Create a new identity.
      * POST /v1/identities/
+     *
+     * @param array $data Identity creation payload
+     * @return object Identity object
      */
     public function create(array $data)
     {
@@ -46,6 +55,10 @@ class Identities
     /**
      * Upsert an identity.
      * PUT /v1/identities/
+     *
+     * @param array $data Identity upsert payload
+     * @return void
+     * @todo Implement
      */
     public function upsert(array $data)
     {
@@ -55,6 +68,10 @@ class Identities
     /**
      * Count identities.
      * GET /v1/identities/count
+     *
+     * @param array $params Optional query parameters
+     * @return void
+     * @todo Implement
      */
     public function count(array $params = [])
     {
@@ -64,6 +81,9 @@ class Identities
     /**
      * Retrieve identity by ID.
      * GET /v1/identities/{identity_id}
+     *
+     * @param string $identityId Identity ID
+     * @return object Identity object
      */
     public function retrieve(string $identityId)
     {
@@ -74,6 +94,9 @@ class Identities
     /**
      * Delete identity by ID.
      * DELETE /v1/identities/{identity_id}
+     *
+     * @param string $identityId Identity ID
+     * @return bool True on success
      */
     public function delete(string $identityId)
     {
@@ -84,6 +107,11 @@ class Identities
     /**
      * Modify identity by ID.
      * PATCH /v1/identities/{identity_id}
+     *
+     * @param string $identityId Identity ID
+     * @param array $data Modification payload
+     * @return void
+     * @todo Implement
      */
     public function modify(string $identityId, array $data)
     {

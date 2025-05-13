@@ -6,18 +6,20 @@ use Letta\Http\HttpClient;
 
 /**
  * Resource class for /v1/jobs endpoints.
+ *
+ * Provides methods to interact with Letta job resources, including listing, retrieving, and deleting jobs.
  */
 class Jobs
 {
     /**
-     * @var HttpClient
+     * @var HttpClient HTTP client for making API requests.
      */
     private $http;
 
     /**
      * Jobs constructor.
      *
-     * @param HttpClient $http
+     * @param HttpClient $http HTTP client instance
      */
     public function __construct(HttpClient $http)
     {
@@ -27,6 +29,9 @@ class Jobs
     /**
      * List all jobs.
      * GET /v1/jobs
+     *
+     * @param array $params Optional query parameters
+     * @return array List of job objects
      */
     public function list(array $params = [])
     {
@@ -39,6 +44,9 @@ class Jobs
     /**
      * List active jobs.
      * GET /v1/jobs/active
+     *
+     * @param array $params Optional query parameters
+     * @return array List of active job objects
      */
     public function listActive(array $params = [])
     {
@@ -51,6 +59,9 @@ class Jobs
     /**
      * Retrieve job by ID.
      * GET /v1/jobs/{job_id}
+     *
+     * @param string $jobId Job ID
+     * @return array Job object
      */
     public function retrieve(string $jobId)
     {
@@ -61,6 +72,9 @@ class Jobs
     /**
      * Delete/cancel job by ID.
      * DELETE /v1/jobs/{job_id}
+     *
+     * @param string $jobId Job ID
+     * @return array API response
      */
     public function delete(string $jobId)
     {

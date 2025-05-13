@@ -6,18 +6,20 @@ use Letta\Http\HttpClient;
 
 /**
  * Resource class for /v1/templates endpoints.
+ *
+ * Provides methods to interact with Letta template resources, including listing templates and creating/versioning templates from agents (cloud-only).
  */
 class Templates
 {
     /**
-     * @var HttpClient
+     * @var HttpClient HTTP client for making API requests.
      */
     private $http;
 
     /**
      * Templates constructor.
      *
-     * @param HttpClient $http
+     * @param HttpClient $http HTTP client instance
      */
     public function __construct(HttpClient $http)
     {
@@ -27,6 +29,9 @@ class Templates
     /**
      * List all templates.
      * GET /v1/templates/
+     *
+     * @param array $params Optional query parameters
+     * @return array List of template objects
      */
     public function list(array $params = [])
     {
@@ -37,6 +42,10 @@ class Templates
     /**
      * Create template from agent (Cloud-only).
      * POST /v1/agents/{agent_id}/template
+     *
+     * @param string $agentId Agent ID
+     * @param array $data Optional template creation payload
+     * @return array API response
      */
     public function createFromAgent(string $agentId, array $data = [])
     {
@@ -47,6 +56,10 @@ class Templates
     /**
      * Version agent template (Cloud-only).
      * POST /v1/agents/{agent_id}/version-template
+     *
+     * @param string $agentId Agent ID
+     * @param array $data Optional versioning payload
+     * @return array API response
      */
     public function versionFromAgent(string $agentId, array $data = [])
     {

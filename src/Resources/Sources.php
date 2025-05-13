@@ -6,18 +6,20 @@ use Letta\Http\HttpClient;
 
 /**
  * Resource class for /v1/sources endpoints.
+ *
+ * Provides methods to interact with Letta source resources, including creation, retrieval, modification, deletion, file management, and passage listing.
  */
 class Sources
 {
     /**
-     * @var HttpClient
+     * @var HttpClient HTTP client for making API requests.
      */
     private $http;
 
     /**
      * Sources constructor.
      *
-     * @param HttpClient $http
+     * @param HttpClient $http HTTP client instance
      */
     public function __construct(HttpClient $http)
     {
@@ -27,6 +29,10 @@ class Sources
     /**
      * List all sources.
      * GET /v1/sources/
+     *
+     * @param array $params Optional query parameters
+     * @return void
+     * @todo Implement
      */
     public function list(array $params = [])
     {
@@ -36,6 +42,9 @@ class Sources
     /**
      * Create a new source.
      * POST /v1/sources/
+     *
+     * @param array $data Source creation payload
+     * @return object Source object
      */
     public function create(array $data)
     {
@@ -46,6 +55,10 @@ class Sources
     /**
      * Count sources.
      * GET /v1/sources/count
+     *
+     * @param array $params Optional query parameters
+     * @return void
+     * @todo Implement
      */
     public function count(array $params = [])
     {
@@ -55,6 +68,9 @@ class Sources
     /**
      * Retrieve source by ID.
      * GET /v1/sources/{source_id}
+     *
+     * @param string $sourceId Source ID
+     * @return object Source object
      */
     public function retrieve(string $sourceId)
     {
@@ -65,6 +81,11 @@ class Sources
     /**
      * Modify source by ID.
      * PATCH /v1/sources/{source_id}
+     *
+     * @param string $sourceId Source ID
+     * @param array $data Modification payload
+     * @return void
+     * @todo Implement
      */
     public function modify(string $sourceId, array $data)
     {
@@ -74,6 +95,9 @@ class Sources
     /**
      * Delete source by ID.
      * DELETE /v1/sources/{source_id}
+     *
+     * @param string $sourceId Source ID
+     * @return bool True on success
      */
     public function delete(string $sourceId)
     {
@@ -84,6 +108,10 @@ class Sources
     /**
      * Get source ID by name.
      * GET /v1/sources/id/{name}
+     *
+     * @param string $name Source name
+     * @return void
+     * @todo Implement
      */
     public function getIdByName(string $name)
     {
@@ -93,6 +121,9 @@ class Sources
     /**
      * List files for a source.
      * GET /v1/sources/{source_id}/files
+     *
+     * @param string $sourceId Source ID
+     * @return array List of file objects
      */
     public function listFiles(string $sourceId)
     {
@@ -103,6 +134,11 @@ class Sources
     /**
      * Upload file to source (multipart/form-data).
      * POST /v1/sources/{source_id}/upload
+     *
+     * @param string $sourceId Source ID
+     * @param string $filePath Path to the file to upload
+     * @return array Job object representing the upload task
+     * @throws \Exception on upload failure
      */
     public function uploadFile(string $sourceId, $filePath)
     {
@@ -182,6 +218,10 @@ class Sources
     /**
      * Delete file from source.
      * DELETE /v1/sources/{source_id}/{file_id}
+     *
+     * @param string $sourceId Source ID
+     * @param string $fileId File ID
+     * @return bool True on success
      */
     public function deleteFile(string $sourceId, string $fileId)
     {
@@ -192,6 +232,9 @@ class Sources
     /**
      * List passages for a source.
      * GET /v1/sources/{source_id}/passages
+     *
+     * @param string $sourceId Source ID
+     * @return array List of passage objects
      */
     public function listPassages(string $sourceId)
     {

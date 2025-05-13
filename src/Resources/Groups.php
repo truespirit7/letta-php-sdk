@@ -6,18 +6,20 @@ use Letta\Http\HttpClient;
 
 /**
  * Resource class for /v1/groups endpoints.
+ *
+ * Provides methods to interact with Letta group resources, including listing, creating, counting, retrieving, modifying, and deleting groups.
  */
 class Groups
 {
     /**
-     * @var HttpClient
+     * @var HttpClient HTTP client for making API requests.
      */
     private $http;
 
     /**
      * Groups constructor.
      *
-     * @param HttpClient $http
+     * @param HttpClient $http HTTP client instance
      */
     public function __construct(HttpClient $http)
     {
@@ -27,6 +29,10 @@ class Groups
     /**
      * List all groups.
      * GET /v1/groups/
+     *
+     * @param array $params Optional query parameters
+     * @return void
+     * @todo Implement
      */
     public function list(array $params = [])
     {
@@ -36,6 +42,9 @@ class Groups
     /**
      * Create a new group.
      * POST /v1/groups/
+     *
+     * @param array $data Group creation payload
+     * @return object Group object
      */
     public function create(array $data)
     {
@@ -46,6 +55,10 @@ class Groups
     /**
      * Count groups.
      * GET /v1/groups/count
+     *
+     * @param array $params Optional query parameters
+     * @return void
+     * @todo Implement
      */
     public function count(array $params = [])
     {
@@ -55,6 +68,9 @@ class Groups
     /**
      * Retrieve group by ID.
      * GET /v1/groups/{group_id}
+     *
+     * @param string $groupId Group ID
+     * @return object Group object
      */
     public function retrieve(string $groupId)
     {
@@ -65,6 +81,11 @@ class Groups
     /**
      * Modify group by ID.
      * PATCH /v1/groups/{group_id}
+     *
+     * @param string $groupId Group ID
+     * @param array $data Modification payload
+     * @return void
+     * @todo Implement
      */
     public function modify(string $groupId, array $data)
     {
@@ -74,6 +95,9 @@ class Groups
     /**
      * Delete group by ID.
      * DELETE /v1/groups/{group_id}
+     *
+     * @param string $groupId Group ID
+     * @return bool True on success
      */
     public function delete(string $groupId)
     {
