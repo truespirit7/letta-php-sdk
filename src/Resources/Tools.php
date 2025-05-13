@@ -155,4 +155,30 @@ class Tools
         $this->http->request('DELETE', "/v1/tools/{$toolId}");
         return true;
     }
+
+    /**
+     * Update a tool by ID.
+     * PATCH /v1/tools/{tool_id}
+     */
+    public function update(string $toolId, array $data)
+    {
+        $response = $this->http->request('PATCH', "/v1/tools/{$toolId}", ['body' => $data]);
+        return (object) $response;
+    }
+
+    /**
+     * Count tools.
+     * GET /v1/tools/count
+     */
+    public function count()
+    {
+        $response = $this->http->request('GET', '/v1/tools/count');
+        // The API returns a plain integer or a JSON integer
+        if (is_array($response) && isset($response['count'])) {
+            return (int) $response['count'];
+        } elseif (is_numeric($response)) {
+            return (int) $response;
+        }
+        return 0;
+    }
 } 

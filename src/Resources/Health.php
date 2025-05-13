@@ -30,6 +30,7 @@ class Health
      */
     public function check()
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/health');
+        return $response;
     }
 } 

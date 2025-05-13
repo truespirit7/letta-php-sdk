@@ -30,7 +30,10 @@ class Runs
      */
     public function list(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/runs/', [
+            'query' => $params
+        ]);
+        return $response;
     }
 
     /**
@@ -39,7 +42,10 @@ class Runs
      */
     public function listActive(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/runs/active', [
+            'query' => $params
+        ]);
+        return $response;
     }
 
     /**
@@ -48,7 +54,8 @@ class Runs
      */
     public function retrieve(string $runId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/runs/{$runId}");
+        return $response;
     }
 
     /**
@@ -57,6 +64,17 @@ class Runs
      */
     public function delete(string $runId)
     {
-        // TODO: Implement
+        $response = $this->http->request('DELETE', "/v1/runs/{$runId}");
+        return $response;
+    }
+
+    /**
+     * Get token usage for a run.
+     * GET /v1/runs/{run_id}/usage
+     */
+    public function usage(string $runId)
+    {
+        $response = $this->http->request('GET', "/v1/runs/{$runId}/usage");
+        return $response;
     }
 } 

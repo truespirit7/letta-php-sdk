@@ -62,11 +62,12 @@ class Batches
     }
 
     /**
-     * List batch messages.
-     * GET /v1/batches/messages/{batch_id}/messages
+     * List messages from a batch run (global batch messages endpoint).
+     * GET /batch-runs/{batch_id}/messages
      */
     public function listBatchMessages(string $batchId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/batch-runs/{$batchId}/messages");
+        return $response;
     }
 } 

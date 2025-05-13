@@ -32,14 +32,7 @@ class ToolIntegrationTest extends IntegrationTestCase
             self::$apiUrl
         );
         $payload = [
-            'name' => 'test_tool_' . uniqid(),
-            'description' => 'Integration test tool',
-            'tool_type' => 'custom',
-            'source_type' => 'python',
-            'source_code' => 'def run(): return "ok"',
-            'json_schema' => (object)[],
-            'args_json_schema' => (object)[],
-            'return_char_limit' => 100
+            'source_code' => "def add(a: int, b: int) -> int:\n    \"\"\"\n    Add two numbers.\n    Args:\n        a (int): First number.\n        b (int): Second number.\n    Returns:\n        int: The sum.\n    \"\"\"\n    return a + b\n\njson_schema = {\n    'type': 'object',\n    'properties': {\n        'a': {'type': 'integer', 'description': 'First number.'},\n        'b': {'type': 'integer', 'description': 'Second number.'}\n    },\n    'required': ['a', 'b']\n}\n"
         ];
         echo "\n[DEBUG] Tool creation payload:\n" . json_encode($payload, JSON_PRETTY_PRINT) . "\n";
         try {

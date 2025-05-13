@@ -144,6 +144,43 @@
 - [ ] **Audit SDK request structure for consistency:**
     - [x] All implemented resource methods for create/upsert/modify are structurally consistent (only Tools is implemented so far).
     - [x] Future implementations should follow the Tools resource pattern for sending payloads as JSON in the 'body' key.
+- [ ] **TODO:** Once async message functions are implemented in the SDK, revisit Runs integration tests to cover the full run lifecycle (create a run via async agent message, then retrieve and delete it).
+
+### Phase 5.5: Extended/Missing Endpoints (from Part 2 Docs)
+- Audit and implement/test the following endpoints as per Letta-API-Endpoints-Documentation Part 2.md:
+
+**Tools**
+- [x] GET `/tools/{tool_id}` (fetch tool by ID)
+- [x] DELETE `/tools/{tool_id}` (delete tool by ID)
+- [x] PATCH `/tools/{tool_id}` (update tool)
+- [x] GET `/tools/count` (count tools)
+
+**Sources (Files & Passages)**
+- [x] GET `/sources/{source_id}/files` (list files for a source)
+- [x] POST `/sources/{source_id}/upload` (upload file to source)
+- [x] DELETE `/sources/{source_id}/files/{file_id}` (delete file from source)
+- [x] GET `/sources/{source_id}/passages` (list passages for a source)
+
+**Jobs**
+- [x] GET `/jobs` (list jobs) *(401 Unauthorized: not testable in current backend setup)*
+- [x] GET `/jobs/active` (list active jobs)
+- [x] GET `/jobs/{job_id}` (get job by ID) *(401 Unauthorized: not testable in current backend setup)*
+- [x] DELETE `/jobs/{job_id}` (delete/cancel job) *(401 Unauthorized: not testable in current backend setup)*
+
+**Usage**
+- [x] GET `/runs/{run_id}/usage` (get token usage for a run)
+
+**Templates (Cloud-only)**
+- [x] POST `/agents/{agent_id}/template` (create template from agent) *(404 Not Found: cloud-only endpoint, not available on this backend)*
+- [x] POST `/agents/{agent_id}/version-template` (version agent template) *(404 Not Found: cloud-only endpoint, not available on this backend)*
+
+**Memory Variables (Cloud-only)**
+- [x] GET `/agents/{agent_id}/core-memory/variables` (get agent memory variables) *(404 Not Found: cloud-only endpoint, not available on this backend)*
+
+**Global Messages (Batch)**
+- [x] GET `/batch-runs/{batch_id}/messages` (get messages from batch run) *(404 Not Found: endpoint not available on this backend)*
+
+- For each endpoint: Audit SDK for implementation, add if missing, and write/skip integration tests as appropriate for self-hosted/Cloud.
 
 ### Phase 6: Documentation & Examples
 - [ ] Write PHPDoc for all public classes and methods
