@@ -6,18 +6,20 @@ use Letta\Http\HttpClient;
 
 /**
  * Resource class for /v1/tools endpoints.
+ *
+ * Provides methods to interact with Letta tool resources, including creation, retrieval, update, deletion, advanced tool operations, and integration with Composio and MCP.
  */
 class Tools
 {
     /**
-     * @var HttpClient
+     * @var HttpClient HTTP client for making API requests.
      */
     private $http;
 
     /**
      * Tools constructor.
      *
-     * @param HttpClient $http
+     * @param HttpClient $http HTTP client instance
      */
     public function __construct(HttpClient $http)
     {
@@ -27,6 +29,9 @@ class Tools
     /**
      * List all tools.
      * GET /v1/tools/
+     *
+     * @param array $params Optional query parameters
+     * @return array List of tool objects
      */
     public function list(array $params = [])
     {
@@ -37,6 +42,9 @@ class Tools
     /**
      * Create a new tool.
      * POST /v1/tools/
+     *
+     * @param array $data Tool creation payload
+     * @return object Tool object
      */
     public function create(array $data)
     {
@@ -47,6 +55,9 @@ class Tools
     /**
      * Upsert a tool.
      * PUT /v1/tools/
+     *
+     * @param array $data Tool upsert payload
+     * @return object Tool object
      */
     public function upsert(array $data)
     {
@@ -57,6 +68,10 @@ class Tools
     /**
      * Upsert base tools.
      * POST /v1/tools/base
+     *
+     * @param array $data Base tool upsert payload
+     * @return void
+     * @todo Implement
      */
     public function upsertBase(array $data)
     {
@@ -66,6 +81,10 @@ class Tools
     /**
      * Run tool from source.
      * POST /v1/tools/run-from-source
+     *
+     * @param array $data Source run payload
+     * @return void
+     * @todo Implement
      */
     public function runFromSource(array $data)
     {
@@ -75,6 +94,9 @@ class Tools
     /**
      * List Composio apps.
      * GET /v1/tools/composio/apps
+     *
+     * @return void
+     * @todo Implement
      */
     public function listComposioApps()
     {
@@ -84,6 +106,10 @@ class Tools
     /**
      * List Composio actions by app.
      * GET /v1/tools/composio/apps/{app_name}/actions
+     *
+     * @param string $appName App name
+     * @return void
+     * @todo Implement
      */
     public function listComposioActions(string $appName)
     {
@@ -93,6 +119,10 @@ class Tools
     /**
      * Add Composio tool.
      * POST /v1/tools/composio
+     *
+     * @param array $data Composio tool payload
+     * @return void
+     * @todo Implement
      */
     public function addComposioTool(array $data)
     {
@@ -102,6 +132,9 @@ class Tools
     /**
      * List MCP servers.
      * GET /v1/tools/mcp/servers
+     *
+     * @return void
+     * @todo Implement
      */
     public function listMcpServers()
     {
@@ -111,6 +144,10 @@ class Tools
     /**
      * Add MCP server to config.
      * PUT /v1/tools/mcp/servers
+     *
+     * @param array $data MCP server payload
+     * @return void
+     * @todo Implement
      */
     public function addMcpServer(array $data)
     {
@@ -120,6 +157,10 @@ class Tools
     /**
      * List MCP tools by server.
      * GET /v1/tools/mcp/{server_id}/tools
+     *
+     * @param string $serverId Server ID
+     * @return void
+     * @todo Implement
      */
     public function listMcpTools(string $serverId)
     {
@@ -129,6 +170,10 @@ class Tools
     /**
      * Add MCP tool.
      * POST /v1/tools/mcp/tools
+     *
+     * @param array $data MCP tool payload
+     * @return void
+     * @todo Implement
      */
     public function addMcpTool(array $data)
     {
@@ -138,18 +183,36 @@ class Tools
     /**
      * Delete MCP server from config.
      * DELETE /v1/tools/mcp/servers/{server_id}
+     *
+     * @param string $serverId Server ID
+     * @return void
+     * @todo Implement
      */
     public function deleteMcpServer(string $serverId)
     {
         // TODO: Implement
     }
 
+    /**
+     * Retrieve a tool by ID.
+     * GET /v1/tools/{tool_id}
+     *
+     * @param string $toolId Tool ID
+     * @return object Tool object
+     */
     public function retrieve(string $toolId)
     {
         $response = $this->http->request('GET', "/v1/tools/{$toolId}");
         return (object) $response;
     }
 
+    /**
+     * Delete a tool by ID.
+     * DELETE /v1/tools/{tool_id}
+     *
+     * @param string $toolId Tool ID
+     * @return bool True on success
+     */
     public function delete(string $toolId)
     {
         $this->http->request('DELETE', "/v1/tools/{$toolId}");
@@ -159,6 +222,10 @@ class Tools
     /**
      * Update a tool by ID.
      * PATCH /v1/tools/{tool_id}
+     *
+     * @param string $toolId Tool ID
+     * @param array $data Update payload
+     * @return object Tool object
      */
     public function update(string $toolId, array $data)
     {
@@ -169,6 +236,8 @@ class Tools
     /**
      * Count tools.
      * GET /v1/tools/count
+     *
+     * @return int Number of tools
      */
     public function count()
     {

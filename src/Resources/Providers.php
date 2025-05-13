@@ -6,18 +6,20 @@ use Letta\Http\HttpClient;
 
 /**
  * Resource class for /v1/providers endpoints.
+ *
+ * Provides methods to interact with Letta provider resources, including listing, creating, deleting, modifying, and checking providers.
  */
 class Providers
 {
     /**
-     * @var HttpClient
+     * @var HttpClient HTTP client for making API requests.
      */
     private $http;
 
     /**
      * Providers constructor.
      *
-     * @param HttpClient $http
+     * @param HttpClient $http HTTP client instance
      */
     public function __construct(HttpClient $http)
     {
@@ -27,6 +29,9 @@ class Providers
     /**
      * List all providers.
      * GET /v1/providers/
+     *
+     * @param array $params Optional query parameters
+     * @return array List of provider objects
      */
     public function list(array $params = [])
     {
@@ -37,6 +42,10 @@ class Providers
     /**
      * Create a new provider.
      * POST /v1/providers/
+     *
+     * @param array $data Provider creation payload
+     * @return void
+     * @todo Implement
      */
     public function create(array $data)
     {
@@ -46,6 +55,10 @@ class Providers
     /**
      * Delete provider by ID.
      * DELETE /v1/providers/{provider_id}
+     *
+     * @param string $providerId Provider ID
+     * @return void
+     * @todo Implement
      */
     public function delete(string $providerId)
     {
@@ -55,6 +68,11 @@ class Providers
     /**
      * Modify provider by ID.
      * PATCH /v1/providers/{provider_id}
+     *
+     * @param string $providerId Provider ID
+     * @param array $data Modification payload
+     * @return void
+     * @todo Implement
      */
     public function modify(string $providerId, array $data)
     {
@@ -64,6 +82,10 @@ class Providers
     /**
      * Check provider by ID.
      * GET /v1/providers/check/{provider_id}
+     *
+     * @param string $providerId Provider ID
+     * @return void
+     * @todo Implement
      */
     public function check(string $providerId)
     {
