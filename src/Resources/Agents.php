@@ -302,12 +302,14 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param array $params Optional query parameters
-     * @return void
-     * @todo Implement
+     * @return array List of message objects
      */
     public function listMessages(string $agentId, array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/agents/{$agentId}/messages", [
+            'query' => $params
+        ]);
+        return $response;
     }
 
     /**
@@ -315,14 +317,17 @@ class Agents
      * POST /v1/agents/{agent_id}/messages
      *
      * @param string $agentId Agent ID
-     * @param array $messages Message payload
-     * @param array $options Optional options
-     * @return void
-     * @todo Implement
+     * @param array $messages Message payload (array of message objects)
+     * @param array $options Optional options (e.g., use_assistant_message)
+     * @return array API response (messages, usage, etc.)
      */
     public function sendMessage(string $agentId, array $messages, array $options = [])
     {
-        // TODO: Implement
+        $body = array_merge(['messages' => $messages], $options);
+        $response = $this->http->request('POST', "/v1/agents/{$agentId}/messages", [
+            'body' => $body
+        ]);
+        return $response;
     }
 
     /**
@@ -332,12 +337,14 @@ class Agents
      * @param string $agentId Agent ID
      * @param string $messageId Message ID
      * @param array $data Modification payload
-     * @return void
-     * @todo Implement
+     * @return array API response (updated message)
      */
     public function modifyMessage(string $agentId, string $messageId, array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/messages/{$messageId}", [
+            'body' => $data
+        ]);
+        return $response;
     }
 
     /**
@@ -345,14 +352,17 @@ class Agents
      * POST /v1/agents/{agent_id}/messages/async
      *
      * @param string $agentId Agent ID
-     * @param array $messages Message payload
+     * @param array $messages Message payload (array of message objects)
      * @param array $options Optional options
-     * @return void
-     * @todo Implement
+     * @return array API response (run object)
      */
     public function sendMessageAsync(string $agentId, array $messages, array $options = [])
     {
-        // TODO: Implement
+        $body = array_merge(['messages' => $messages], $options);
+        $response = $this->http->request('POST', "/v1/agents/{$agentId}/messages/async", [
+            'body' => $body
+        ]);
+        return $response;
     }
 
     /**
@@ -360,13 +370,15 @@ class Agents
      * PATCH /v1/agents/{agent_id}/reset-messages
      *
      * @param string $agentId Agent ID
-     * @param array $options Optional options
-     * @return void
-     * @todo Implement
+     * @param array $options Optional options (e.g., add_default_initial_messages)
+     * @return array API response (agent object)
      */
     public function resetMessages(string $agentId, array $options = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/reset-messages", [
+            'body' => $options
+        ]);
+        return $response;
     }
 
     /**

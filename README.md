@@ -51,6 +51,7 @@ See the [`docs/examples/`](docs/examples/) directory for ready-to-run scripts. E
 - **List, Retrieve & Delete Job:** [`list_retrieve_delete_job.php`](docs/examples/list_retrieve_delete_job.php) — List jobs, fetch and delete one
 - **List, Retrieve & Delete Run:** [`list_retrieve_delete_run.php`](docs/examples/list_retrieve_delete_run.php) — List runs, fetch and delete one
 - **Upload File to Source:** [`upload_file_to_source.php`](docs/examples/upload_file_to_source.php) — Create a source, upload a file, poll job status, and delete the file
+- **Send Message to Agent:** [`send_message_to_agent.php`](docs/examples/send_message_to_agent.php) — Send a message to an agent and print the response and conversation history
 
 Run an example:
 
