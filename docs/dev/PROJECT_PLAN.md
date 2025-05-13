@@ -217,9 +217,11 @@ CC-BY-SA (Creative Commons Attribution-ShareAlike 4.0 International)
 
 ## What We Missed (Forensic Audit)
 
-The following endpoints, SDK methods, or tests are missing, incomplete, or require further work to achieve full coverage as per the Letta API documentation:
+### Priority: Self-Hosted/On-Prem Endpoints
 
-### Agents
+The following endpoints, SDK methods, or tests are missing, incomplete, or require further work to achieve full coverage for self-hosted/on-prem Letta deployments:
+
+#### Agents
 - [ ] Implement SDK methods for:
     - [ ] `list` (GET /v1/agents/) — SDK, test, example
     - [ ] `create` (POST /v1/agents/) — SDK, test, example
@@ -228,14 +230,13 @@ The following endpoints, SDK methods, or tests are missing, incomplete, or requi
     - [ ] `import` (POST /v1/agents/import) — SDK, test
     - [ ] `delete` (DELETE /v1/agents/{agent_id}) — SDK, test
     - [ ] `modify` (PATCH /v1/agents/{agent_id}) — SDK, test
-    - [ ] `search` (POST /v1/agents/search) — SDK, test (Cloud-only)
     - [ ] `getContext` (GET /v1/agents/{agent_id}/context) — SDK, test
     - [ ] `listTools`, `attachTool`, `detachTool` (agent-tool management) — SDK, test
     - [ ] `listSources`, `attachSource`, `detachSource` (agent-source management) — SDK, test
     - [ ] `getCoreMemoryBlocks`, `modifyCoreMemoryBlock`, `attachCoreMemoryBlock`, `detachCoreMemoryBlock` — SDK, test
 - [ ] Add integration tests and examples for all above methods
 
-### Sources
+#### Sources
 - [ ] Implement SDK methods for:
     - [ ] `list` (GET /v1/sources/) — SDK, test
     - [ ] `count` (GET /v1/sources/count) — SDK, test
@@ -243,19 +244,19 @@ The following endpoints, SDK methods, or tests are missing, incomplete, or requi
     - [ ] `getIdByName` (GET /v1/sources/id/{name}) — SDK, test
 - [ ] Add integration tests and examples for all above methods
 
-### Blocks
+#### Blocks
 - [ ] Implement SDK method for:
     - [ ] `list` (GET /v1/blocks/) — SDK, test
 - [ ] Add integration test
 
-### Groups
+#### Groups
 - [ ] Implement SDK methods for:
     - [ ] `list` (GET /v1/groups/) — SDK, test
     - [ ] `count` (GET /v1/groups/count) — SDK, test
     - [ ] `modify` (PATCH /v1/groups/{group_id}) — SDK, test
 - [ ] Add integration tests
 
-### Identities
+#### Identities
 - [ ] Implement SDK methods for:
     - [ ] `list` (GET /v1/identities/) — SDK, test
     - [ ] `upsert` (PUT /v1/identities/) — SDK, test
@@ -263,40 +264,49 @@ The following endpoints, SDK methods, or tests are missing, incomplete, or requi
     - [ ] `modify` (PATCH /v1/identities/{identity_id}) — SDK, test
 - [ ] Add integration tests
 
-### Providers
+#### Providers
 - [ ] Implement SDK methods for:
     - [ ] `create` (POST /v1/providers/) — SDK, test
     - [ ] `delete` (DELETE /v1/providers/{provider_id}) — SDK, test
     - [ ] `modify` (PATCH /v1/providers/{provider_id}) — SDK, test
 - [ ] Add integration tests
 
-### Tools
+#### Tools
 - [ ] Implement SDK methods for:
     - [ ] `upsertBase` (POST /v1/tools/base) — SDK, test
     - [ ] `runFromSource` (POST /v1/tools/run-from-source) — SDK, test
     - [ ] MCP/Composio endpoints (various) — SDK, test
 - [ ] Add integration tests (remove skips for MCP/Composio if needed)
 
-### Batches
+#### Batches
 - [ ] Implement SDK methods for:
     - [ ] `createMessagesBatch` (POST /v1/batches/messages) — SDK, test
     - [ ] `retrieveRun` (GET /v1/batches/runs/{batch_id}) — SDK, test
     - [ ] `cancelRun` (PATCH /v1/batches/runs/{batch_id}) — SDK, test
 - [ ] Add integration tests
 
-### Tags
+#### Tags
 - [ ] Implement SDK method for:
     - [ ] `list` (GET /v1/tags/) — SDK, test
 - [ ] Add integration test
 
-### Memory Variables
-- [ ] Implement SDK method for:
-    - [ ] `getCoreMemoryVariables` (GET /v1/agents/{agent_id}/core-memory/variables) — SDK, test (Cloud-only)
-- [ ] Add integration test (Cloud-only)
-
-### Batch Messages
+#### Batch Messages
 - [ ] Implement SDK method for:
     - [ ] `getBatchMessages` (GET /v1/batch-runs/{batch_id}/messages) — SDK, test
+- [ ] Add integration test
+
+---
+
+### Cloud-Only Endpoints
+
+The following endpoints are only available in Letta Cloud and should be implemented/tested as optional or with appropriate skips:
+
+#### Agents (Cloud-only)
+- [ ] `search` (POST /v1/agents/search) — SDK, test
+
+#### Memory Variables (Cloud-only)
+- [ ] Implement SDK method for:
+    - [ ] `getCoreMemoryVariables` (GET /v1/agents/{agent_id}/core-memory/variables) — SDK, test
 - [ ] Add integration test
 
 ---
