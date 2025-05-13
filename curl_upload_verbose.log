@@ -1,0 +1,37 @@
+* Host devletta.zero1.network:8283 was resolved.
+* IPv6: (none)
+* IPv4: 206.188.196.60
+*   Trying 206.188.196.60:8283...
+* Connected to devletta.zero1.network (206.188.196.60) port 8283
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519 / id-ecPublicKey
+* ALPN: server accepted http/1.1
+* Server certificate:
+*  subject: CN=devletta.zero1.network
+*  start date: Apr 26 00:51:30 2025 GMT
+*  expire date: Jul 25 00:51:29 2025 GMT
+*  issuer: C=US; O=Let's Encrypt; CN=E5
+*  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 1: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/1.x
+> POST /v1/sources/source-a56b77db-ea9e-4166-8a2d-e31a010e2e21/upload HTTP/1.1
+Host: devletta.zero1.network:8283
+Accept: */*
+Authorization: Bearer abc123
+Content-Length: 739
+Content-Type: multipart/form-data; boundary=------------------------jLhsYOSiEjwZyCpzTjXxnG
+
+* upload completely sent off: 739 bytes
+* old SSL session ID is stale, removing
+< HTTP/1.1 200 OK
+< Server: nginx/1.24.0 (Ubuntu)
+< Date: Tue, 13 May 2025 05:03:00 GMT
+< Content-Type: application/json
+< Content-Length: 487
+< Connection: keep-alive
+< Access-Control-Allow-Methods: *
+< Access-Control-Allow-Headers: Authorization, Content-Type, X-Bare-Password, Cache-Control, Accept, X-Requested-With, Sec-Ch-Ua, Sec-Ch-Ua-Mobile, Sec-Ch-Ua-Platform, Sec-Fetch-Site, Sec-Fetch-Mode, Sec-Fetch-Dest, Sec-Fetch-User, Sec-Fetch-Header, X-Source-Client
+< Access-Control-Allow-Credentials: true
+< 
+* Connection #0 to host devletta.zero1.network left intact

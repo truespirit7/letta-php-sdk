@@ -28,4 +28,10 @@ abstract class IntegrationTestCase extends TestCase
             $this->markTestSkipped('Integration test environment variables are not set.');
         }
     }
+
+    protected function getClient()
+    {
+        $this->skipIfMissingEnv();
+        return new \Letta\Client(self::$apiToken, self::$apiUrl);
+    }
 } 

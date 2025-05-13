@@ -16,6 +16,9 @@ use Letta\Resources\Voice;
 use Letta\Resources\Templates;
 use Letta\Resources\Providers;
 use Letta\Resources\Runs;
+use Letta\Resources\Steps;
+use Letta\Resources\Health;
+use Letta\Resources\Jobs;
 
 /**
  * Main entry point for the Letta PHP SDK.
@@ -52,6 +55,9 @@ class Client
     private $templates;
     private $providers;
     private $runs;
+    private $steps;
+    private $health;
+    private $jobs;
 
     /**
      * Client constructor.
@@ -200,6 +206,30 @@ class Client
             $this->runs = new Runs($this->httpClient);
         }
         return $this->runs;
+    }
+
+    public function steps(): Steps
+    {
+        if (!$this->steps) {
+            $this->steps = new Steps($this->httpClient);
+        }
+        return $this->steps;
+    }
+
+    public function health(): Health
+    {
+        if (!$this->health) {
+            $this->health = new Health($this->httpClient);
+        }
+        return $this->health;
+    }
+
+    public function jobs(): Jobs
+    {
+        if (!$this->jobs) {
+            $this->jobs = new Jobs($this->httpClient);
+        }
+        return $this->jobs;
     }
 
     // TODO: Add resource accessors (e.g., $client->agents(), $client->tools(), etc.)

@@ -30,7 +30,10 @@ class Steps
      */
     public function list(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/steps/', [
+            'query' => $params
+        ]);
+        return $response;
     }
 
     /**
@@ -39,6 +42,7 @@ class Steps
      */
     public function retrieve(string $stepId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/steps/{$stepId}");
+        return $response;
     }
 } 
