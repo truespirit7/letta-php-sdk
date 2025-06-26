@@ -49,7 +49,11 @@ class Agents
      */
     public function create(array $data)
     {
-        // TODO: Implement
+         $response = $this->http->request('POST', "/v1/agents", [
+             'json' => $data,
+         ]);
+        return (object) $response;
+
     }
 
     /**
@@ -325,7 +329,9 @@ class Agents
     {
         $body = array_merge(['messages' => $messages], $options);
         $response = $this->http->request('POST', "/v1/agents/{$agentId}/messages", [
-            'body' => $body
+            // 'body' => $body
+                        'body' => 'Test aloooo',
+
         ]);
         return $response;
     }
