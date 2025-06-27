@@ -31,12 +31,14 @@ class Agents
      * GET /v1/agents/
      *
      * @param array $params Optional query parameters
-     * @return void
-     * @todo Implement
+     * @return array List of agent objects
      */
     public function list(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/agents/', [
+            'query' => $params
+        ]);
+        return $response;
     }
 
     /**
@@ -44,12 +46,14 @@ class Agents
      * POST /v1/agents/
      *
      * @param array $data Agent creation payload
-     * @return void
-     * @todo Implement
+     * @return array Agent object
      */
     public function create(array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/agents/', [
+            'body' => $data
+        ]);
+        return $response;
     }
 
     /**
@@ -57,12 +61,19 @@ class Agents
      * GET /v1/agents/count
      *
      * @param array $params Optional query parameters
-     * @return void
-     * @todo Implement
+     * @return int Number of agents
      */
     public function count(array $params = [])
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/agents/count', [
+            'query' => $params
+        ]);
+        if (is_array($response) && isset($response['count'])) {
+            return (int) $response['count'];
+        } elseif (is_numeric($response)) {
+            return (int) $response;
+        }
+        return 0;
     }
 
     /**
@@ -70,12 +81,14 @@ class Agents
      * GET /v1/agents/export
      *
      * @param string $agentId Agent ID
-     * @return void
-     * @todo Implement
+     * @return array Exported agent data
      */
     public function export(string $agentId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', '/v1/agents/export', [
+            'query' => ['agent_id' => $agentId]
+        ]);
+        return $response;
     }
 
     /**
@@ -83,12 +96,14 @@ class Agents
      * POST /v1/agents/import
      *
      * @param array $serializedAgent Serialized agent data
-     * @return void
-     * @todo Implement
+     * @return array Imported agent object
      */
     public function import(array $serializedAgent)
     {
-        // TODO: Implement
+        $response = $this->http->request('POST', '/v1/agents/import', [
+            'body' => $serializedAgent
+        ]);
+        return $response;
     }
 
     /**
@@ -109,12 +124,12 @@ class Agents
      * DELETE /v1/agents/{agent_id}
      *
      * @param string $agentId Agent ID
-     * @return void
-     * @todo Implement
+     * @return bool True on success
      */
     public function delete(string $agentId)
     {
-        // TODO: Implement
+        $this->http->request('DELETE', "/v1/agents/{$agentId}");
+        return true;
     }
 
     /**
@@ -123,12 +138,14 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param array $data Modification payload
-     * @return void
-     * @todo Implement
+     * @return array Modified agent object
      */
     public function modify(string $agentId, array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}", [
+            'body' => $data
+        ]);
+        return $response;
     }
 
     /**
@@ -149,12 +166,12 @@ class Agents
      * GET /v1/agents/{agent_id}/context
      *
      * @param string $agentId Agent ID
-     * @return void
-     * @todo Implement
+     * @return array Context window object
      */
     public function getContext(string $agentId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/agents/{$agentId}/context");
+        return $response;
     }
 
     /**
@@ -162,12 +179,12 @@ class Agents
      * GET /v1/agents/{agent_id}/tools
      *
      * @param string $agentId Agent ID
-     * @return void
-     * @todo Implement
+     * @return array List of tool objects
      */
     public function listTools(string $agentId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/agents/{$agentId}/tools");
+        return $response;
     }
 
     /**
@@ -176,12 +193,12 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param string $toolId Tool ID
-     * @return void
-     * @todo Implement
+     * @return array Updated agent object
      */
     public function attachTool(string $agentId, string $toolId)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/tools/attach/{$toolId}");
+        return $response;
     }
 
     /**
@@ -190,12 +207,12 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param string $toolId Tool ID
-     * @return void
-     * @todo Implement
+     * @return array Updated agent object
      */
     public function detachTool(string $agentId, string $toolId)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/tools/detach/{$toolId}");
+        return $response;
     }
 
     /**
@@ -203,12 +220,12 @@ class Agents
      * GET /v1/agents/{agent_id}/sources
      *
      * @param string $agentId Agent ID
-     * @return void
-     * @todo Implement
+     * @return array List of source objects
      */
     public function listSources(string $agentId)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/agents/{$agentId}/sources");
+        return $response;
     }
 
     /**
@@ -217,12 +234,12 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param string $sourceId Source ID
-     * @return void
-     * @todo Implement
+     * @return array Updated agent object
      */
     public function attachSource(string $agentId, string $sourceId)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/sources/attach/{$sourceId}");
+        return $response;
     }
 
     /**
@@ -231,12 +248,12 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param string $sourceId Source ID
-     * @return void
-     * @todo Implement
+     * @return array Updated agent object
      */
     public function detachSource(string $agentId, string $sourceId)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/sources/detach/{$sourceId}");
+        return $response;
     }
 
     /**
@@ -245,12 +262,12 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param string $blockLabel Block label
-     * @return void
-     * @todo Implement
+     * @return array Block object
      */
     public function getCoreMemoryBlock(string $agentId, string $blockLabel)
     {
-        // TODO: Implement
+        $response = $this->http->request('GET', "/v1/agents/{$agentId}/core-memory/blocks/{$blockLabel}");
+        return $response;
     }
 
     /**
@@ -260,12 +277,14 @@ class Agents
      * @param string $agentId Agent ID
      * @param string $blockLabel Block label
      * @param array $data Modification payload
-     * @return void
-     * @todo Implement
+     * @return array Block object
      */
     public function modifyCoreMemoryBlock(string $agentId, string $blockLabel, array $data)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/core-memory/blocks/{$blockLabel}", [
+            'body' => $data
+        ]);
+        return $response;
     }
 
     /**
@@ -274,12 +293,12 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param string $blockId Block ID
-     * @return void
-     * @todo Implement
+     * @return array Updated agent object
      */
     public function attachCoreMemoryBlock(string $agentId, string $blockId)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/core-memory/blocks/attach/{$blockId}");
+        return $response;
     }
 
     /**
@@ -288,12 +307,12 @@ class Agents
      *
      * @param string $agentId Agent ID
      * @param string $blockId Block ID
-     * @return void
-     * @todo Implement
+     * @return array Updated agent object
      */
     public function detachCoreMemoryBlock(string $agentId, string $blockId)
     {
-        // TODO: Implement
+        $response = $this->http->request('PATCH', "/v1/agents/{$agentId}/core-memory/blocks/detach/{$blockId}");
+        return $response;
     }
 
     /**

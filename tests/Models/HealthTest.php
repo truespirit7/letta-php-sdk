@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use Letta\Models\Health;
 
-class HealthTest extends TestCase
+class HealthModelTest extends TestCase
 {
     public function testPropertyAssignment()
     {
