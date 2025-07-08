@@ -3,6 +3,8 @@
 namespace Letta\Resources;
 
 use Letta\Http\HttpClient;
+use Illuminate\Support\Facades\Http as LaravelHttp;
+use Pest\ArchPresets\Laravel;
 
 /**
  * Resource class for /v1/agents endpoints.
@@ -348,6 +350,90 @@ class Agents
         ]);
         return $response;
     }
+    public function sendMessageStreamingOld(string $agentId, array $messages, array $options = [])
+    {
+        // $body = array_merge([
+        //     'messages' => $messages,
+        //     'stream_tokens' => true,
+        // ], $options);
+        // $response = $this->http->request('POST', "/v1/agents/{$agentId}/messages/stream", [
+        //     'body' => $body
+        // ]);
+
+        // return response()->stream(function () use ($response) {
+        //     $stream = $response->getBody();
+        //     while (!$stream->eof()) {
+        //         echo $stream->read(1024);
+        //         ob_flush();
+        //         flush();
+        //     }
+        // }, 200, ['Content-Type' => 'text/event-stream']);
+
+    }
+
+    public function sendMessageStreamingOld_v2(string $agentId, array $messages, array $options = [])
+    {
+        $body = array_merge([
+            'messages' => $messages,
+            'stream' => true
+        ], $options);
+
+        // Используем Laravel HTTP client  
+        $response = LaravelHttp::withHeaders([
+            'Authorization' => 'Bearer ' . "sk-let-ZGZmMzc5N2UtMmM3ZC00MTk4LTkyMzUtYjU1MTk4NDFkMzUwOjg5NTBkNWFmLTIxNDgtNDJlMS04NDYyLTNkZWM2ZTgzZTViOQ==",
+            // 'Authorization' => 'Bearer ' . config('letta.api_key'),
+            'Accept' => 'text/event-stream',
+            'Cache-Control' => 'no-cache'
+        ])->post("https://api.letta.com" . "/v1/agents/{$agentId}/messages", $body);
+
+
+
+        // Возвращаем стрим для обработки в ChatController  
+        return $response->toPsrResponse()->getBody();
+    }
+
+    public function sendMessageStreaming(string $agentId, array $messages, array $options = [])
+    {
+        $body = array_merge([
+            'messages' => $messages,
+            'stream' => true
+        ], $options);
+
+        $response = LaravelHttp::withHeaders([
+            'Authorization' => 'Bearer ' . $_ENV['LETTA_API_TOKEN'],
+            'Accept' => 'text/event-stream',
+            'Content-Type' => 'application/json',
+            'Cache-Control' => 'no-cache',
+        ])->withOptions(['stream' => true])
+            ->post("https://api.letta.com/v1/agents/{$agentId}/messages", $body);
+        
+
+            //             $stream = $response->getBody();
+            // while (!$stream->eof()) {
+            //     $chunk = $stream->read(1024);
+            //     // Важно: обернуть chunk в формат SSE
+            //     echo "data: " . str_replace("\n", "\\n", trim($chunk)) . "\n\n";
+            //     ob_flush();
+            //     flush();
+            // }
+
+
+        return response()->stream(function () use ($response) {
+            $stream = $response->getBody();
+            while (!$stream->eof()) {
+                $chunk = $stream->read(1024);
+                // Важно: обернуть chunk в формат SSE
+                echo "data: " . str_replace("\n", "\\n", trim($chunk)) . "\n\n";
+                ob_flush();
+                flush();
+            }
+        }, 200, [
+            'Content-Type' => 'text/event-stream',
+            'Cache-Control' => 'no-cache',
+            'X-Accel-Buffering' => 'no', // для nginx
+        ]);
+    }
+
 
     /**
      * Modify message.
@@ -412,4 +498,4 @@ class Agents
         $response = $this->http->request('GET', "/v1/agents/{$agentId}/core-memory/variables");
         return $response;
     }
-} 
+}
